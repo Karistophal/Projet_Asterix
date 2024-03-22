@@ -65,3 +65,24 @@ app.post('/api/login', (req, res) => {
     res.json({ message: 'Route protégée', user: req.user });
   });
 
+  // Route pour l'inscription
+app.post('/api/register', (req, res) => {
+    const { email, password } = req.body;
+    // Vérifier si l'email existe déjà dans la base de données
+    db.query('SELECT * FROM users WHERE email = ?', [email], (err, results) => {
+      if (err) {
+        res.status(500).json({ error: 'Erreur lors de la vérification de l\'email' });
+      } else if (results.length > 0) {
+        res.status(409).json({ error: 'Email déjà utilisé' });
+      } else {
+        // Insérer les données de l'utilisateur dans la base de données
+        db.query('INSERT INTO users (email, password) VALUES (?, ?)', [email, password], (err, result) => {
+          if (err) {
+            res.status(500).json({ error: 'Erreur lors de l\'ajout de l\'utilisateur' });
+          } else {
+            res.status(201).json({ message: 'Utilisateur ajouté avec succès' });
+          }
+        });
+      }
+    });
+  });
