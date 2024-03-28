@@ -1,13 +1,20 @@
 import React from 'react';
+import '../../assets/styles/navbar.css';
 // Définition du composant sous forme de fonction
 function MonComposant() {
     return (
-      <div>
-        <h1>Mon Composant</h1>
-        <p>Ceci est un exemple de composant React.</p>
-      </div>
+      <nav>
+        <ul>
+            <li>
+                <img src="" alt="" />
+                <a href="/">Accueil</a>
+                <a href="/">Attractions</a>
+                <a href="/">Aide</a>
+                <a href="/">Contact</a>
+                
+            </li>
+        </ul>
+      </nav>
     );
   }
-  
-  // Export du composant pour qu'il soit utilisable ailleurs
   export default MonComposant;
