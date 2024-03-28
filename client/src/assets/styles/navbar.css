@@ -1,0 +1,23 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+li{
+    gap: 10vh;
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    list-style: none;
+    text-decoration: none;
+}
+a{
+    font-weight: bold;
+    text-decoration: none;
+    color:black;
+}
+.logo-asterix{
+    height:90px;
+    width: auto;
+}
