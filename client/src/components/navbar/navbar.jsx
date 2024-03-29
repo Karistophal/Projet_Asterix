@@ -11,10 +11,10 @@ function MonComposant() {
         <ul>
             <li>
                 <img src={LogoAsterix} alt="" className='logo-asterix' />
-                <a href="/">Accueil</a>
-                <a href="/">Attractions</a>
-                <a href="/">Aide</a>
-                <a href="/">Contact</a>
+                <a href="/" className='link'>Accueil</a>
+                <a href="/" className='link'>Attractions</a>
+                <a href="/"className='link'>Aide</a>
+                <a href="/"className='link'>Contact</a>
                 <div className='search-bar'>
                 <img src={LogoProfile} alt="" className='logo-profile'/>
                 <img src={Loupe} alt="" className='search-icon'/>
