@@ -21,3 +21,37 @@ a{
     height:90px;
     width: auto;
 }
+.btn_cnnx{
+    background-color:#10bc5c;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-left: 10px;
+}
+.btn_cnnx:hover{
+    text-decoration: underline;
+}
+.logo-profile{
+    width:10vh;
+    height: 100%;
+}
+.search-icon{
+    width: 10vh;
+    height: 100%;
+}
+.search-bar{
+    display: flex;
+    text-align: right;
+    align-items:center;
+    justify-content: right;
+    width: 100%;
+    height: 100%;
+    border: none;
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 5px;
+    margin-left: 10px;
+}
