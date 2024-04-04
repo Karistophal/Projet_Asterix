@@ -1,9 +1,18 @@
 import '../../App.css';
+import '../../assets/styles/auth.css';
+import LogoProfile from '../../assets/images/logo_asterix.png'
 
 function Authentification() {
   return (
       <div className="bodyy">
         <div className="buttonWrapper">
+
+          <div>
+
+            <img src={LogoProfile} alt="" className='logoAuth'/>
+
+          </div>
+
           <div className="CarreArrondiTahLesInfos">
 
             <div class="zoneEntree">
