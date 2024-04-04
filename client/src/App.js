@@ -1,16 +1,16 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Home from './pages/Home';
-import Navbar from './components/Navbar';
+import Authentification from './pages/Authentification';
 
 
 function App() {
   return (
       <Router>
-        <Navbar />
         <div>
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/auth" element={<Authentification />} />
           <Route path="/list" element={""} />
         </Routes>
       </div>
