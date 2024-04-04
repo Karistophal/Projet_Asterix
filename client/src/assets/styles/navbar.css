@@ -1,0 +1,87 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+li{
+    flex-direction: row;
+    gap: 10vh;
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    list-style: none;
+    text-decoration: none;
+}
+@media screen and (max-width: 992px) {
+    li{
+        flex-direction: column;
+    }
+}
+a{
+    height: 100%;
+    font-weight: bold;
+    text-decoration: none;
+    color:black;
+}
+@media screen and (max-width: 992px) {
+    .link:hover{
+        background-color: #10bc5c;
+    }
+}
+.logo-asterix{
+    height:90px;
+    width: auto;
+}
+.btn_cnnx{
+    transition: 0.5 ease-in;
+    background-color:#10bc5c;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-left: 10px;
+}
+
+.btn_cnnx:hover{
+    text-decoration: underline;
+    transform:scale(1.1);
+}
+.logo-profile{
+    transition: 0.5 ease;
+    width:8.5vh;
+    height: 100%;
+}
+.logo-profile:hover{
+    transform: scale(1.1);
+}
+.search-icon{
+    transition: 0.5 ease;
+    width: 10vh;
+    height: 100%;
+}
+.search-icon:hover{
+    transform: scale(1.1);
+}
+.search-bar{
+    display: flex;
+    text-align: right;
+    align-items:center;
+    justify-content: right;
+    width: 100%;
+    height: 100%;
+    border: none;
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 5px;
+    margin-left: 10px;
+}
+@media screen and (max-width: 992px) {
+    .search-bar{
+        text-align: center;
+        align-items: center;
+        justify-content: center;
+    }
+}
