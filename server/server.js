@@ -86,3 +86,16 @@ app.post('/api/register', (req, res) => {
       }
     });
   });
+
+// Route GET pour récupérer des données de la base de données
+app.get('/attractions', (req, res) => {
+  // Exécuter la requête SQL pour sélectionner des données
+  connection.query('SELECT * FROM table_de_votre_base_de_donnees', (error, results, fields) => {
+    if (error) {
+      console.error('Erreur lors de l\'exécution de la requête :', error);
+      return res.status(500).send('Erreur lors de la récupération des données');
+    }
+    // Envoyer les résultats en tant que réponse
+    res.json(results);
+  });
+});
