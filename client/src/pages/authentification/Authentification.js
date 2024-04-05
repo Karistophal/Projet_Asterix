@@ -7,11 +7,13 @@ function Authentification() {
       <div className="bodyy">
         <div className="buttonWrapper">
 
-          <div>
+          <div className='imageLogoAuth'>
 
             <img src={LogoProfile} alt="" className='logoAuth'/>
 
           </div>
+
+          <div className='infosRentrerAuth'>
 
           <div className="CarreArrondiTahLesInfos">
 
@@ -25,7 +27,14 @@ function Authentification() {
                 <span>Mot de passe</span>
             </div>
 
+            <div class="zoneValider">
+              <a id="inputValider" type="submit" class="boutonValider" href="#" style="--clr:#007581" onclick="submitForm()"><span>Valider</span><i></i></a>
+            </div>
+
           </div>
+
+          </div>
+
         </div>
       </div>
   );
