@@ -8,12 +8,13 @@ const jwt=require('jsonwebtoken');
 const bcrypt=require('bcrypt');
 app.use(cors());
 app.use(bodyParser.json());
+app.use(express.json());
 
 const connection = mysql.createConnection({
     host: 'localhost',
     user: 'root',
     password: '',
-    database: 'dbsebgo'
+    database: 'dbasterix'
 });
 
 connection.connect((err) => {
@@ -64,6 +65,24 @@ app.post('/api/login', (req, res) => {
   app.get('/profile', verifyToken, (req, res) => {
     res.json({ message: 'Route protégée', user: req.user });
   });
+
+  // Route GET /attractions
+app.get('/attractions', (req, res) => {
+  // Requête SQL pour sélectionner toutes les attractions
+  const sql = 'SELECT nom, image, description, taille FROM attractions';
+
+  // Exécution de la requête SQL
+  connection.query(sql, (err, results) => {
+    if (err) {
+      console.error('Erreur lors de l\'exécution de la requête SQL : ', err);
+      res.status(500).json({ error: 'Erreur serveur' });
+      return;
+    }
+
+    // Renvoyer les résultats de la requête au format JSON
+    res.json(results);
+  });
+});
 
   // Route pour l'inscription
 app.post('/api/register', (req, res) => {

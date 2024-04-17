@@ -13,9 +13,10 @@ function Attractions(){
     }, []);
     
     return (
+        console.log(data),
         <div className="attractions_list">
             {data.map((item, index) => (
-                <Card props={item} key={index}/>
+                <Card {...item} key={index}/>
             ))}
         </div>
     );
