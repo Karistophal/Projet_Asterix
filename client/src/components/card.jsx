@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 
 // Import du fichier de style Sass pour styliser la carte
 import '../assets/styles/card.scss';
+import '../assets/styles/Modal.css';
 
 // Définition du composant Card prenant des propriétés en entrée
 function Card(props) {
