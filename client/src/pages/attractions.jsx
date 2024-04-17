@@ -30,9 +30,6 @@ function Attractions(){
             {data.map((item, index) => (
                 <div key={index}>
                     <Card {...item} />
-                    <button className="button-3" onClick={handleAdd}>Ajouter</button>
-                    <button className="button-3" onClick={() => handleEdit(item.id)}>Modifier</button>
-                    <button className="button-3" onClick={() => handleDelete(item.id)}>Supprimer</button>
                 </div>
             ))}
         </div>
