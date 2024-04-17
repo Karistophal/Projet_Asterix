@@ -1,12 +1,11 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+.nav-container {
+    padding-inline: 100px;
+    margin-bottom: 50px;
 }
 
 li{
     flex-direction: row;
-    gap: 10vh;
+    gap: 4vw;
     display: flex;
     justify-content: left;
     align-items: center;
@@ -51,7 +50,7 @@ a{
 }
 .logo-profile{
     transition: 0.5 ease;
-    width:8.5vh;
+    width: 50px;
     height: 100%;
 }
 .logo-profile:hover{
@@ -59,7 +58,7 @@ a{
 }
 .search-icon{
     transition: 0.5 ease;
-    width: 10vh;
+    width: 50px;
     height: 100%;
 }
 .search-icon:hover{
