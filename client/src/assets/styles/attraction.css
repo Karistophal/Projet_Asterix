@@ -9,6 +9,11 @@
     height: 100vh;
     padding: 20px;
   }
+  @media screen and (max-width: 1150px) { /* Adaptez cette valeur selon vos besoins */
+    .attractions_list {
+      grid-template-columns: repeat(1, 1fr); /* Une seule colonne pour les appareils mobiles */
+    }
+  }
 
   .button-3 {
     appearance: none;
