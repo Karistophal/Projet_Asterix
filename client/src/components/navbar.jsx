@@ -12,7 +12,7 @@ function Navbar() {
             <li>
                 <img src={LogoAsterix} alt="" className='logo-asterix' />
                 <a href="/" className='link'>Accueil</a>
-                <a href="/" className='link'>Attractions</a>
+                <a href="/attractions" className='link'>Attractions</a>
                 <a href="/"className='link'>Aide</a>
                 <a href="/"className='link'>Contact</a>
                 <div className='search-bar'>
