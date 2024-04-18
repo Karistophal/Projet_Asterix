@@ -6,7 +6,9 @@
 }
 
 .title {
-    font-weight: 900;
-    font-size: 45px;
-    line-height: 50px;
+    width: fit-content;
+}
+
+.cardlist {
+    
 }

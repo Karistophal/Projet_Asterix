@@ -13,7 +13,7 @@ const connection = mysql.createConnection({
     host: 'localhost',
     user: 'root',
     password: '',
-    database: 'dbsebgo'
+    database: 'dbasterix'
 });
 
 connection.connect((err) => {
@@ -66,7 +66,7 @@ app.post('/api/login', (req, res) => {
   });
 
   // Route pour l'inscription
-app.post('/api/register', (req, res) => {
+  app.post('/api/register', (req, res) => {
     const { email, password } = req.body;
     // Vérifier si l'email existe déjà dans la base de données
     db.query('SELECT * FROM users WHERE email = ?', [email], (err, results) => {
@@ -86,3 +86,31 @@ app.post('/api/register', (req, res) => {
       }
     });
   });
+
+  
+  // Mes missions requete 
+  app.get('/missions', verifyToken, (req, res) => {
+    const userEmail = req.user.adresse_mail;
+
+    connection.query('SELECT missiondujour.* FROM missiondujour INNER JOIN poste ON poste.poste_id = missiondujour.poste_id INNER JOIN equipe ON equipe.equipe_id = poste.equipe_id INNER JOIN utilisateur ON utilisateur.equipe_id = equipe.equipe_id WHERE utilisateur.adresse_mail = ?', [userEmail], (err, results) => {
+      if (err) {
+        res.status(500).json({ error: 'Erreur lors de la récupération des missions de l\'utilisateur' });
+      } else {
+        res.status(200).json(results); 
+      }
+    });
+});
+
+// Mes missions requete 
+app.get('/missionstest', verifyToken, (req, res) => {
+
+  connection.query('SELECT missiondujour.* FROM missiondujour INNER JOIN poste ON poste.poste_id = missiondujour.poste_id INNER JOIN equipe ON equipe.equipe_id = poste.equipe_id INNER JOIN utilisateur ON utilisateur.equipe_id = equipe.equipe_id WHERE utilisateur.adresse_mail = ?', (err, results) => {
+    if (err) {
+      res.status(500).json({ error: 'Erreur lors de la récupération des missions de l\'utilisateur' });
+    } else {
+      res.status(200).json(results); 
+    }
+  });
+});
+
+
