@@ -1,10 +1,17 @@
 import React from "react";
 import "../assets/styles/missionCard.css"
 
-function Card() {
+function Card(laMission) {
+
+  console.log(laMission);
+  const mission = laMission.laMission
+
+
 
   return (
-    <a></a>
+    <div className="cardWrapper" style={{backgroundImage: `url(${mission.image})`}}>
+      {mission.description}
+    </div>
   );
 }
 

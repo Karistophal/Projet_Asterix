@@ -10,7 +10,7 @@ function Missions() {
     //recupération des missions
     const [mesMissions, setData] = useState([]);
     useEffect(() => {
-        fetch("http://localhost:3000/missionstest")
+        fetch("http://localhost:3333/missionstest")
             .then(res => res.json())
             .then(result => { 
                 setData(result);
@@ -27,7 +27,7 @@ function Missions() {
             <div className="title">Mes missions du jour</div>
             <div className="cardlist">
                 {mesMissions.map(mission => (
-                    <div className="">{mission.description}</div>
+                   <MissionCard key={mission.id} laMission={mission} />
                 ))}
             </div>
         </div>
