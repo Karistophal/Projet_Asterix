@@ -192,7 +192,19 @@ body {
       color: #2d7f0b;
     }
   }
-
+  .TailleLogo{
+    position: relative;
+    left: 50px;
+    top: 25px; /* Ajustez cette valeur pour déplacer l'image plus ou moins bas */
+    width: 50px;
+    height: 50px;
+}
+.taillemini {
+  position: relative;
+  left: 20px;
+  bottom: 10px;
+  font-size: 20px; /* Ajustez cette valeur pour augmenter ou diminuer la taille de la police */
+}
   img {
     top: 0;
     left: 0;

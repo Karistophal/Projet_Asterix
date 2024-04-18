@@ -11,8 +11,12 @@ function Attractions(){
         fetch("http://localhost:3333/attraction")
             .then(res => res.json())
             .then(result => { 
-                setData(result);
-                setFilterdata(result);
+                if (Array.isArray(result)) {
+                    setData(result);
+                    setFilterdata(result);
+                } else {
+                    console.error('Data fetched is not an array:', result);
+                }
             });
     }, []);
     

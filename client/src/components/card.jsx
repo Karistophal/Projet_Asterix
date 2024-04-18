@@ -1,6 +1,6 @@
 // Import de useState depuis React pour gérer l'état de la fenêtre modale
 import React, { useState } from 'react';
-
+import TailleLogo from '../assets/images/la-taille.png';
 // Import du fichier de style Sass pour styliser la carte
 import '../assets/styles/card.scss';
 import '../assets/styles/Modal.css';
@@ -25,7 +25,7 @@ function Card(props) {
         </h3>
         {/* Description de la carte */}
         <p className="card-hover__text">{props.description}</p><br></br>
-        <p className="card-hover__text">{props.tailleMini}</p>
+        <p className="card-hover__text"><div className='TailleLogo'><img src={TailleLogo} alt="Description de l'image" /></div><div className="taillemini">{props.tailleMini} cm</div></p>
         {/* Lien pour afficher plus de détails, avec un bouton et une icône */}
         <a href="#" onClick={toggleInfo} className="card-hover__link">
           <span>Plus de détails</span> {/* Texte du lien */}
