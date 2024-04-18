@@ -24,7 +24,8 @@ function Card(props) {
           {props.nom} {/* Affichage du nom de la carte */}
         </h3>
         {/* Description de la carte */}
-        <p className="card-hover__text">{props.description}</p>
+        <p className="card-hover__text">{props.description}</p><br></br>
+        <p className="card-hover__text">{props.tailleMini}</p>
         {/* Lien pour afficher plus de détails, avec un bouton et une icône */}
         <a href="#" onClick={toggleInfo} className="card-hover__link">
           <span>Plus de détails</span> {/* Texte du lien */}
