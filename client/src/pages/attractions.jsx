@@ -4,25 +4,12 @@ import '../assets/styles/attraction.css';
 function Attractions(){
     const [data, setData] = useState([]);
     useEffect(() => {
-        fetch("http://localhost:3000/attractions")
+        fetch("http://localhost:3333/attraction")
             .then(res => res.json())
             .then(result => { 
                 setData(result);
             });
     }, []);
-
-    const handleAdd = () => {
-        // Code pour ajouter une attraction
-    };
-
-    const handleEdit = (id) => {
-        // Code pour modifier une attraction
-    };
-
-    const handleDelete = (id) => {
-        // Code pour supprimer une attraction
-    };
-
     
     
     return (

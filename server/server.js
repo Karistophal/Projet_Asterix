@@ -1,7 +1,7 @@
 const express=require('express');
 const app=express();
 const mysql=require('mysql');
-const port=3000;
+const port=3333;
 const cors=require('cors');
 const bodyParser=require('body-parser');
 const jwt=require('jsonwebtoken');
@@ -33,7 +33,7 @@ app.listen(port, function(err){
 // Route pour l'authentification
 app.post('/api/login', (req, res) => {
     const { email, password } = req.body;
-    connection.query('SELECT * FROM users WHERE email = ?', [email], (err, results) => {
+    connection.query('SELECT adresse_mail, mot_de_passe FROM utilisateur WHERE adresse_mail = ?', [email], (err, results) => {
       if (err) {
         res.status(500).json({ error: 'Erreur lors de la récupération des données utilisateur' });
       } else if (results.length === 0 || results[0].password !== password) {
@@ -67,9 +67,9 @@ app.post('/api/login', (req, res) => {
   });
 
   // Route GET /attractions
-app.get('/attractions', (req, res) => {
+app.get('/attraction', (req, res) => {
   // Requête SQL pour sélectionner toutes les attractions
-  const sql = 'SELECT nom, image, description, taille FROM attractions';
+  const sql = 'SELECT nom, image, description, tailleMini FROM attraction';
 
   // Exécution de la requête SQL
   connection.query(sql, (err, results) => {

@@ -36,25 +36,9 @@ function Card(props) {
       </div>
       {/* Affichage conditionnel de la fenêtre modale en fonction de showInfo */}
       {showInfo && (
-        <div style={{
-          zIndex: 1000,
-          position: 'fixed',
-          top: 0,
-          left: 0,
-          right: 0,
-          bottom: 0,
-          backgroundColor: 'rgba(0, 0, 0, 0.5)',
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}>
+        <div className='modal'>
           {/* Contenu de la fenêtre modale */}
-          <div style={{
-            backgroundColor: '#fff',
-            padding: '1em',
-            width: '80%',
-            maxWidth: '400px',
-          }}>
+          <div className='modal-content'>
             {/* Nom de la carte */}
             <strong>{props.nom}</strong><br></br>
             {/* Image de la carte */}
