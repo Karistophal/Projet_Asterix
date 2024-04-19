@@ -15,6 +15,7 @@ function Navbar() {
     setIsLoggedIn(false);
     window.location.reload(); // Recharge la page actuelle
   };
+  
 
   // Mettez à jour l'état isLoggedIn lorsque le composant est monté
   useEffect(() => {
