@@ -25,7 +25,7 @@ function Card(props) {
         </h3>
         {/* Description de la carte */}
         <p className="card-hover__text">{props.description}</p><br></br>
-        <p className="card-hover__text"><div className='TailleLogo'><img src={TailleLogo} alt="Description de l'image" /></div><div className="taillemini">{props.tailleMini} cm</div></p>
+        <p className="card-hover__text"><div className='TailleLogo'><img src={TailleLogo} alt="Description de l'image" /></div><div className="taillemini">{props.tailleMini} cm</div></p><div className='tailletexte'> Zone Géographique : {props.lieu}</div><br></br>
         {/* Lien pour afficher plus de détails, avec un bouton et une icône */}
         <a href="#" onClick={toggleInfo} className="card-hover__link">
           <span>Plus de détails</span> {/* Texte du lien */}
@@ -46,6 +46,7 @@ function Card(props) {
             <img src={props.image} alt={props.nom} /><br></br>
             {/* Description de la carte */}
             {props.description}<br></br>
+            {props.lieu}<br></br>
             {/* Bouton pour fermer la fenêtre modale */}
             <button className="button-3" onClick={toggleInfo}>Close</button>
           </div>

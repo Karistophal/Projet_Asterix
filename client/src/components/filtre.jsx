@@ -11,6 +11,9 @@ function Filtre({data, setFilterdata}) {
     const [sliderValue, setSliderValue] = useState(0);
     const [isAscending, setIsAscending] = useState(true);
     const [isAlphabetical, setIsAlphabetical] = useState(true);
+    const [searchValue, setSearchValue] = useState('');
+    const [selectedLocation, setSelectedLocation] = useState('');
+
     // Définition d'une fonction pour gérer les changements de l'input de recherche
     const handleChange = (e) => {
         // Récupération de la valeur de l'input de recherche
@@ -63,18 +66,48 @@ function Filtre({data, setFilterdata}) {
         // Inversion de l'ordre de tri pour le prochain clic
         setIsAscending(!isAscending);
     }
+    const handleSortByLocation = () => {
+        const sortedData = [...data].sort((a, b) => {
+            if (isAscending) {
+                return a.lieu.localeCompare(b.lieu);
+            } else {
+                return b.lieu.localeCompare(a.lieu);
+            }
+        });
+        setFilterdata(sortedData);
+        setIsAscending(!isAscending);
+    }
 
+    const handleLocationChange = (e) => {
+        setSelectedLocation(e.target.value);
+        const result = data.filter((item) => {
+            return item.nom.toLowerCase().includes(searchValue.toLowerCase()) && item.tailleMini >= sliderValue && (item.lieu === e.target.value || e.target.value === '');
+        });
+        setFilterdata(result);
+    }
+
+    const uniqueLocations = [...new Set(data.map(item => item.lieu))];
     // Rendu du composant
     return (
         <div className='filter-container'> 
             <input  type="text" name='name' onChange={handleChange}  className="form-control" placeholder='Search...' />
             <button onClick={handleSort}>Trier par nom</button>
             <button onClick={handleSortBySize}>Trier par taille</button>
-            Taille Minimum : <input type="range" min="0" max="200" value={sliderValue} onChange={handleSliderChange} />
+            <button onClick={handleSortByLocation}>Trier par lieu</button>
+            <div className='taille'>Taille Minimum : </div><input type="range" min="0" max="200" value={sliderValue} onChange={handleSliderChange} />
             <output>{sliderValue}</output>
+            <select value={selectedLocation} onChange={handleLocationChange}>
+                <option value="">Tous les lieux</option>
+                {uniqueLocations.map((location, index) => (
+                    <option key={index} value={location}>{location}</option>
+                ))}
+            </select>
         </div>
     )
 }
 
 // Exportation du composant Filtre
+
+
+
 export default Filtre;

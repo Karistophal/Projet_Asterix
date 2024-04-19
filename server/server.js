@@ -69,7 +69,7 @@ app.post('/api/login', (req, res) => {
   // Route GET /attractions
 app.get('/attraction', (req, res) => {
   // Requête SQL pour sélectionner toutes les attractions
-  const sql = "SELECT nom, image, description, tailleMini FROM structure WHERE theme LIKE '%Montagnes russes%'";
+  const sql = "SELECT nom, image, description, tailleMini, lieu FROM structure WHERE theme LIKE '%Montagnes russes%'";
 
   // Exécution de la requête SQL
   connection.query(sql, (err, results) => {
