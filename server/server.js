@@ -136,12 +136,35 @@ app.get('/attraction', (req, res) => {
         res.status(500).json({ error: 'Erreur serveur' });
         return;
       }
+
+      
       
   
       // Renvoyer les résultats de la requête au format JSON
       res.json(results);
     });
   });
+
+    // Route GET /admin/alertes
+    app.get('/api/alertes', (req, res) => {
+      // Requête SQL pour sélectionner toutes les attractions
+      const sql = 'SELECT * FROM alerte';
+    
+      // Exécution de la requête SQL
+      connection.query(sql, (err, results) => {
+        if (err) {
+          console.error('Erreur lors de l\'exécution de la requête SQL : ', err);
+          res.status(500).json({ error: 'Erreur serveur' });
+          return;
+        }
+  
+        
+        
+    
+        // Renvoyer les résultats de la requête au format JSON
+        res.json(results);
+      });
+    });
 
 // Route pour l'inscription
 app.post('/api/register', (req, res) => {

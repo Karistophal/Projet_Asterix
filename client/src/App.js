@@ -5,6 +5,7 @@ import Navbar from './components/navbar.jsx';
 import Attractions from './pages/attractions.jsx';
 import Authentification from './pages/authentification/Authentification.js';
 import ComptesAdmin from './pages/admin/ComptesAdmin.js';
+import Alertes from './pages/alertes/Alertes.js';
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
           <Route path="/attractions" element={<Attractions />} />
           <Route path="/auth" element={<Authentification />} />
           <Route path="/admin/comptes" element={<ComptesAdmin />} />
+          <Route path="/alertes" element={<Alertes />} />
         </Routes>
       </div>
       </Router>
