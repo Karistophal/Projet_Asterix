@@ -1,7 +1,7 @@
 const express=require('express');
 const app=express();
 const mysql=require('mysql');
-const port=3000;
+const port=3333;
 const cors=require('cors');
 const bodyParser=require('body-parser');
 const jwt=require('jsonwebtoken');
@@ -13,7 +13,7 @@ const connection = mysql.createConnection({
     host: 'localhost',
     user: 'root',
     password: '',
-    database: 'dbsebgo'
+    database: 'dbasterix'
 });
 
 connection.connect((err) => {
@@ -29,19 +29,44 @@ app.listen(port, function(err){
     console.log("Server listening on Port", port);
 })
 
-// Route pour l'authentification
-app.post('/api/login', (req, res) => {
-    const { email, password } = req.body;
-    connection.query('SELECT * FROM users WHERE email = ?', [email], (err, results) => {
+function generateToken(user) {
+  return jwt.sign({user : user}, '1234', { expiresIn: '120s', });
+}
+
+allUsers = () => {
+  return new Promise((resolve, reject) => {
+    connection.query('SELECT * FROM utilisateur', (err, results) => {
       if (err) {
-        res.status(500).json({ error: 'Erreur lors de la récupération des données utilisateur' });
-      } else if (results.length === 0 || results[0].password !== password) {
-        res.status(401).json({ error: 'Email ou mot de passe incorrect' });
+        reject(err);
       } else {
-        const token = jwt.sign({ email: results[0].email }, '1234', { expiresIn: '1h' });
-        res.json({ token });
+        resolve(results);
       }
     });
+  });
+};
+
+// Route pour l'authentification
+app.post('/api/login', async (req, res) => {
+  trouve = false;
+    users = await allUsers();
+    users.forEach(user => {
+      console.log(req.body.username);
+      console.log(req.body.password);
+      console.log(user.adresse_mail);
+      console.log(user.mot_de_passe)
+      if(user.adresse_mail === req.body.username && user.mot_de_passe === req.body.password)
+      {
+        const token = generateToken(req.body.username);
+        console.log("Connexion réussie");
+        trouve = true;
+        console.log(token);
+        res.send({ token });
+      }
+    });
+    if(trouve === false){
+    console.log("Connexion échouée");
+      res.send({ error: 'Email ou mot de passe incorrect' });
+    }
   });
   
   // Middleware pour protéger les routes privées
