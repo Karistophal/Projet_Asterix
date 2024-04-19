@@ -4,6 +4,7 @@ import Home from './pages/home.jsx';
 import Navbar from './components/navbar.jsx';
 import Attractions from './pages/attractions.jsx';
 import Authentification from './pages/authentification/Authentification.js';
+import ComptesAdmin from './pages/admin/ComptesAdmin.js';
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/attractions" element={<Attractions />} />
           <Route path="/auth" element={<Authentification />} />
+          <Route path="/admin/comptes" element={<ComptesAdmin />} />
         </Routes>
       </div>
       </Router>
