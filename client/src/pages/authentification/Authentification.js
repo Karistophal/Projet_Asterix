@@ -28,27 +28,29 @@ function Authentification() {
     }));
   };
 
-const handleSubmit = async (e) => {
-  e.preventDefault();
-  try {
-    const response = await fetch('http://localhost:3333/api/login', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(formData)
-    });
-
-    if (!response.ok) {
-      throw new Error('Network response was not ok');
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await fetch('http://localhost:3333/api/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(formData)
+      });
+  
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+  
+      const data = await response.json();
+      localStorage.setItem('token', data.token); // Stockez le token dans le stockage local
+  
+      handleClick();
+    } catch (error) {
+      console.error('Connection error:', error);
     }
-    handleClick();
-    // Handle server response (e.g., redirect the user)
-  } catch (error) {
-    console.error('Connection error:', error);
-    // Display an error message to the user
-  }
-};
+  };
 
   return (
       <div className="bodyy">
