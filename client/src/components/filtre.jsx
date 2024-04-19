@@ -91,17 +91,17 @@ function Filtre({data, setFilterdata}) {
     return (
         <div className='filter-container'> 
             <input  type="text" name='name' onChange={handleChange}  className="form-control" placeholder='Search...' />
-            <button onClick={handleSort}>Trier par nom</button>
-            <button onClick={handleSortBySize}>Trier par taille</button>
-            <button onClick={handleSortByLocation}>Trier par lieu</button>
-            <div className='taille'>Taille Minimum : </div><input type="range" min="0" max="200" value={sliderValue} onChange={handleSliderChange} />
-            <output>{sliderValue}</output>
-            <select value={selectedLocation} onChange={handleLocationChange}>
+            <button className="button-30" onClick={handleSort}>Trier par nom</button>
+            <button className="button-30" onClick={handleSortBySize}>Trier par taille</button>
+            <button className="button-30" onClick={handleSortByLocation}>Trier par lieu</button>
+            <select className="button-30" value={selectedLocation} onChange={handleLocationChange}>
                 <option value="">Tous les lieux</option>
                 {uniqueLocations.map((location, index) => (
                     <option key={index} value={location}>{location}</option>
                 ))}
             </select>
+            <div className='taille'>Taille Minimum : </div><input type="range" min="0" max="200" value={sliderValue} onChange={handleSliderChange} />
+            <output>{sliderValue}</output>
         </div>
     )
 }
