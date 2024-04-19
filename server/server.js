@@ -69,6 +69,20 @@ app.post('/api/login', async (req, res) => {
       res.send({ error: 'Email ou mot de passe incorrect' });
     }
   });
+
+  app.delete('/api/comptesDel/:id', (req, res) => {
+    const id = req.params.id;
+  
+    // Delete the user from the database
+    connection.query('DELETE FROM utilisateur WHERE user_id = ?', [id], (err, result) => {
+      if (err) {
+        console.error('Error:', err);
+        res.status(500).json({ error: 'An error occurred while deleting the user' });
+      } else {
+        res.status(200).json({ message: 'User deleted successfully' });
+      }
+    });
+  });
   
   // Middleware pour protéger les routes privées
   function verifyToken(req, res, next) {
@@ -103,30 +117,57 @@ app.get('/attraction', (req, res) => {
       res.status(500).json({ error: 'Erreur serveur' });
       return;
     }
+    
 
     // Renvoyer les résultats de la requête au format JSON
     res.json(results);
   });
 });
 
-  // Route pour l'inscription
-app.post('/api/register', (req, res) => {
-    const { email, password } = req.body;
-    // Vérifier si l'email existe déjà dans la base de données
-    db.query('SELECT * FROM users WHERE email = ?', [email], (err, results) => {
+  // Route GET /admin/comptes
+  app.get('/api/comptes', (req, res) => {
+    // Requête SQL pour sélectionner toutes les attractions
+    const sql = 'SELECT * FROM utilisateur';
+  
+    // Exécution de la requête SQL
+    connection.query(sql, (err, results) => {
       if (err) {
-        res.status(500).json({ error: 'Erreur lors de la vérification de l\'email' });
-      } else if (results.length > 0) {
-        res.status(409).json({ error: 'Email déjà utilisé' });
-      } else {
-        // Insérer les données de l'utilisateur dans la base de données
-        db.query('INSERT INTO users (email, password) VALUES (?, ?)', [email, password], (err, result) => {
-          if (err) {
-            res.status(500).json({ error: 'Erreur lors de l\'ajout de l\'utilisateur' });
-          } else {
-            res.status(201).json({ message: 'Utilisateur ajouté avec succès' });
-          }
-        });
+        console.error('Erreur lors de l\'exécution de la requête SQL : ', err);
+        res.status(500).json({ error: 'Erreur serveur' });
+        return;
       }
+      
+  
+      // Renvoyer les résultats de la requête au format JSON
+      res.json(results);
     });
   });
+
+// Route pour l'inscription
+app.post('/api/register', (req, res) => {
+  const { email, password, teamId } = req.body;
+  // Vérifier si l'email existe déjà dans la base de données
+  connection.query('SELECT * FROM utilisateur WHERE adresse_mail = ?', [email], (err, results) => {
+    if (err) {
+      res.status(500).json({ error: 'Erreur lors de la vérification de l\'email' });
+    } else if (results.length > 0) {
+      res.status(409).json({ error: 'Email déjà utilisé' });
+    } else {
+      // Insérer les données de l'utilisateur dans la base de données
+      connection.query('INSERT INTO utilisateur (adresse_mail, mot_de_passe, equipe_id, admin) VALUES (?, ?, ?, 0)', [email, password, teamId], (err, result) => {
+        if (err) {
+          res.status(500).json({ error: 'Erreur lors de l\'ajout de l\'utilisateur' });
+        } else {
+          // Get the newly created user
+          connection.query('SELECT * FROM utilisateur WHERE adresse_mail = ?', [email], (err, results) => {
+            if (err) {
+              res.status(500).json({ error: 'Erreur lors de la récupération de l\'utilisateur' });
+            } else {
+              res.status(201).json(results[0]); // Return the newly created user
+            }
+          });
+        }
+      });
+    }
+  });
+});
