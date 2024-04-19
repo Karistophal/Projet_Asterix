@@ -42,6 +42,14 @@ h5 {
 }
 
 
+@media screen and (max-width: 775px) { /* Adaptez cette valeur selon vos besoins */
+  .card {
+    width: 60%; /* Réduisez la largeur à 60% */
+    height: auto; /* Réglez la hauteur sur auto pour maintenir le ratio d'aspect */
+    margin: 0 auto; /* Centrer la carte */
+  }
+}
+
 body {
   flex-direction: column;
   justify-content: center;
@@ -75,14 +83,14 @@ body {
       &__content {
         background-color: #DEE8C2;
         bottom: 100%;
-        transform: translateY(100%);
+        transform: translateY(85%);
         padding: 50px 60px;
         transition: all 0.35s cubic-bezier(.1,.72,.4,.97);
       }
 
       &__link {
         opacity: 1;
-        transform: translate(-50%, 0);
+        transform: translate(-50%, 170px);
         transition: all 0.3s 0.35s cubic-bezier(.1,.72,.4,.97);
       }
     }
