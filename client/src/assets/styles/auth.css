@@ -1,0 +1,171 @@
+.buttonWrapper{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-top: 20px;
+  }
+  
+  .CarreArrondiTahLesInfos {
+    border-radius: 5px;
+    margin-left: auto;
+    margin-right: auto;
+    color: #7D7D7D;
+    padding: 10px;
+    margin: 10px;
+    width: 50%;
+    height: 18rem;
+    box-shadow: 15px 5px 10px rgba(0, 0, 0, 0.08), -15px 5px 10px rgba(0, 0, 0, 0.08), 0 10px 10px rgba(0, 0, 0, 0.08);
+  }
+
+  .logoAuth{
+    width: 20%;
+    height: auto;
+  }
+
+  .imageLogoAuth{
+    display: flex;
+    justify-content: center;
+  }
+
+  .infosRentrerAuth{
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+  }
+
+  .zoneEntree{
+    margin: auto;
+    margin-top: 20px;
+    position: relative;
+    width: 400px;
+    height: 60px;
+}
+
+.zoneEntree input{
+  width: 100%;
+  padding: 10px 0;
+  font-size: 1em;
+  border: 2px solid #7D7D7D;
+  border-radius: 25px;
+  background: transparent;
+  transition: 0.3s ease-in-out;
+  height: 50px;
+}
+
+.PasswordEntry{
+  -webkit-text-security: disc;
+}
+
+.zoneEntree span{
+  position: absolute;
+  left: 0;
+  top: 0;
+  padding: 10px;
+  pointer-events: none;
+  font-size: 1em;
+  color: #7D7D7D;
+  text-transform: uppercase;
+  transition: 0.3s ease-in-out;
+}
+
+.zoneEntree input:valid ~ span,
+.zoneEntree input:focus ~ span
+{
+    transform: translateX(10px) translateY(-7px);
+    font-size: 0.8em;
+    color: #007581;
+    padding: 0 10px;
+    background: #ffffff;
+    border-left: 1px solid #1F3757;
+    border-right: 1px solid #1F3757;
+    letter-spacing: 0.2em;
+}
+
+.zoneEntree:nth-child(2) input:valid ~ span,
+.zoneEntree:nth-child(2) input:focus ~ span
+{
+background: #00a5b8;
+color: #1F3757;
+border-radius: 3px;
+}
+
+.zoneEntree input:valid,
+.zoneEntree input:focus
+{
+    border: 1px solid #007581;
+}
+
+.boutonValider{
+  margin-top: 20px;
+  position: relative;
+  color: #162447;
+  font-weight: 900;
+  font-size: 1.5em;
+  text-decoration: none;
+  background: #162447;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  padding: 10px 30px;
+  transition: 0.3s ease-in-out;
+}
+
+.zoneValider .boutonValider{
+  margin-top: 20px;
+  position: relative;
+  color: #162447;
+  font-weight: 900;
+  font-size: 1.5em;
+  text-decoration: none;
+  background: #162447;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  padding: 10px 30px;
+  transition: 0.3s ease-in-out;
+}
+.boutonValider:hover{
+  background: var(--clr);
+  color: var(--clr);
+  letter-spacing: 0.25em;
+  box-shadow: 0 0 35px var(--clr);
+}
+.boutonValider:before{
+  content: '';
+  position: absolute;
+  inset: 2px;
+  background: #EDECEC;
+}
+.boutonValider span{
+  position: relative;
+  z-index: 1;
+  color: #1F3757;
+}
+.boutonValider i::before{
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 80%;
+  width: 10px;
+  height: 4px;
+  background: #EDECEC;
+  transform: translateX(-50%) skewX(325deg);
+  transition: 0.5s;
+}
+.boutonValider:hover i::before{
+  left: 20%;
+  width: 20px;
+}
+.boutonValider i::after{
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 20%;
+  width: 10px;
+  height: 4px;
+  background: #EDECEC;
+  transform: translateX(-50%) skewX(325deg);
+  transition: 0.5s;
+}
+.boutonValider:hover i::after{
+  left: 80%;
+  width: 20px;
+}
