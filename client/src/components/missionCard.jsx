@@ -3,7 +3,6 @@ import "../assets/styles/missionCard.css"
 
 function Card(laMission) {
 
-  console.log(laMission);
   const mission = laMission.laMission
 
 
@@ -11,6 +10,7 @@ function Card(laMission) {
   return (
     <div className="cardWrapper" style={{backgroundImage: `url(${mission.image})`}}>
       {mission.description}
+      <div className="">{}</div>
     </div>
   );
 }

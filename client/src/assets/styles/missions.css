@@ -3,10 +3,18 @@
     flex-direction: column;
     align-items: center;
     flex: 1;
+    gap: 30px;
 }
 
 .title {
     width: fit-content;
+}
+
+.selectContainer {
+    display: flex;
+    font-weight: 700;
+    font-size: 18px;
+    gap: 10px;
 }
 
 .cardlist {

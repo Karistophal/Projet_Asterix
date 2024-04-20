@@ -11,6 +11,7 @@ app.use(bodyParser.json());
 app.use(express.json());
 
 const connection = mysql.createConnection({
+    timezone : 'UTC',
     host: 'localhost',
     user: 'root',
     password: '',
@@ -102,16 +103,15 @@ app.post('/api/login', (req, res) => {
     });
 });
 
-// Mes missions requete 
-app.get('/missionstest', (req, res) => {
+  // Mes missions requete 
+  app.get('/missionss', (req, res) => {
 
-  connection.query("SELECT m.id AS mission_id, m.type_mission, m.id_objet, m.date, m.description, CASE WHEN m.type_mission = 'attraction' THEN a.image WHEN m.type_mission = 'boutique' THEN b.image WHEN m.type_mission = 'billeterie' THEN bi.image WHEN m.type_mission = 'accueil' THEN ac.image ELSE NULL END AS image FROM missiondujour m LEFT JOIN attraction a ON m.type_mission = 'attraction' AND m.id_objet = a.id LEFT JOIN boutique b ON m.type_mission = 'boutique' AND m.id_objet = b.id LEFT JOIN billeterie bi ON m.type_mission = 'billeterie' AND m.id_objet = bi.id LEFT JOIN accueil ac ON m.type_mission = 'accueil' AND m.id_objet = ac.id WHERE m.id = 1", (err, results) => {
-    if (err) {
-      res.status(500).json({ error: 'Erreur lors de la récupération des missions de l\'utilisateur', err });
-    } else {
-      res.status(200).json(results); 
-    }
-  });
+    connection.query('SELECT missiondujour.*, structure.image, structure.nom from missiondujour inner join poste on poste.poste_id = missiondujour.poste_id INNER JOIN equipe ON equipe.equipe_id = poste.equipe_id INNER JOIN utilisateur ON utilisateur.equipe_id = equipe.equipe_id inner join structure on missiondujour.structure = structure.id WHERE utilisateur.adresse_mail = "utilisateur1@example.com"', (err, results) => {
+      if (err) {
+        res.status(500).json({ error: 'Erreur lors de la récupération des missions de l\'utilisateur' });
+      } else {
+        res.status(200).json(results); 
+      }
+    });
 });
-
 
