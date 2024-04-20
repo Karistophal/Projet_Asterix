@@ -11,6 +11,7 @@ app.use(bodyParser.json());
 app.use(express.json());
 
 const connection = mysql.createConnection({
+    timezone : 'UTC',
     host: 'localhost',
     user: 'root',
     password: '',
@@ -171,3 +172,29 @@ app.post('/api/register', (req, res) => {
     }
   });
 });
+  
+  // Mes missions requete 
+  app.get('/missions', verifyToken, (req, res) => {
+    const userEmail = req.user.adresse_mail;
+
+    connection.query('SELECT missiondujour.*, structure.image, structure.nom from missiondujour inner join poste on poste.poste_id = missiondujour.poste_id INNER JOIN equipe ON equipe.equipe_id = poste.equipe_id INNER JOIN utilisateur ON utilisateur.equipe_id = equipe.equipe_id inner join structure on missiondujour.structure = structure.id WHERE utilisateur.adresse_mail = ?', [userEmail], (err, results) => {
+      if (err) {
+        res.status(500).json({ error: 'Erreur lors de la récupération des missions de l\'utilisateur' });
+      } else {
+        res.status(200).json(results); 
+      }
+    });
+});
+
+  // Mes missions requete 
+  app.get('/missionss', (req, res) => {
+
+    connection.query('SELECT missiondujour.*, structure.image, structure.nom from missiondujour inner join poste on poste.poste_id = missiondujour.poste_id INNER JOIN equipe ON equipe.equipe_id = poste.equipe_id INNER JOIN utilisateur ON utilisateur.equipe_id = equipe.equipe_id inner join structure on missiondujour.structure = structure.id WHERE utilisateur.adresse_mail = "utilisateur1@example.com"', (err, results) => {
+      if (err) {
+        res.status(500).json({ error: 'Erreur lors de la récupération des missions de l\'utilisateur' });
+      } else {
+        res.status(200).json(results); 
+      }
+    });
+});
+
