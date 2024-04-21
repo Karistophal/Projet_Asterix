@@ -148,7 +148,7 @@ app.get('/attraction', (req, res) => {
     // Route GET /admin/alertes
     app.get('/api/alertes', (req, res) => {
       // Requête SQL pour sélectionner toutes les attractions
-      const sql = 'SELECT * FROM alerte';
+      const sql = 'SELECT *, libelle FROM alerte Inner Join niveau on alerte.niveau_id = niveau.idNiv';
     
       // Exécution de la requête SQL
       connection.query(sql, (err, results) => {
@@ -165,6 +165,27 @@ app.get('/attraction', (req, res) => {
         res.json(results);
       });
     });
+
+        // Route GET /admin/alertes
+        app.get('/api/importance', (req, res) => {
+          // Requête SQL pour sélectionner toutes les attractions
+          const sql = 'SELECT * FROM niveau';
+        
+          // Exécution de la requête SQL
+          connection.query(sql, (err, results) => {
+            if (err) {
+              console.error('Erreur lors de l\'exécution de la requête SQL : ', err);
+              res.status(500).json({ error: 'Erreur serveur' });
+              return;
+            }
+      
+            
+            
+        
+            // Renvoyer les résultats de la requête au format JSON
+            res.json(results);
+          });
+        });
 
     app.delete('/api/alertesDel/:id', (req, res) => {
       const id = req.params.id;
@@ -203,6 +224,31 @@ app.post('/api/register', (req, res) => {
               res.status(201).json(results[0]); // Return the newly created user
             }
           });
+        }
+      });
+    }
+  });
+});
+
+app.post('/api/ajoutalertes', (req, res) => {
+  const { titre, description, importance } = req.body;
+  console.log(importance);
+
+  // Insérer les données de l'alerte dans la base de données
+  connection.query('INSERT INTO alerte (titre, description, niveau_id) VALUES (?, ?, ?)', [titre, description, importance], (err, result) => {
+    if (err) {
+      res.status(500).json({ error: 'Erreur lors de l\'ajout de l\'alerte' });
+      console.log(err);
+    } else {
+      // Get the id of the newly created alert
+      const newAlertId = result.insertId;
+
+      // Get the newly created alert
+      connection.query('SELECT *, libelle FROM alerte INNER JOIN niveau on alerte.niveau_id = niveau.idNiv WHERE id = ?', [newAlertId], (err, results) => {
+        if (err) {
+          res.status(500).json({ error: 'Erreur lors de la récupération de l\'alerte' });
+        } else {
+          res.status(201).json(results[0]); // Return the newly created alert
         }
       });
     }
