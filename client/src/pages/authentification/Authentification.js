@@ -50,6 +50,7 @@ function Authentification() {
     } catch (error) {
       console.error('Connection error:', error);
     }
+    window.location.reload(); // Recharge la page actuelle
   };
 
   return (
