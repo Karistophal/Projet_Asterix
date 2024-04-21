@@ -137,12 +137,49 @@ app.get('/attraction', (req, res) => {
         res.status(500).json({ error: 'Erreur serveur' });
         return;
       }
+
+      
       
   
       // Renvoyer les résultats de la requête au format JSON
       res.json(results);
     });
   });
+
+    // Route GET /admin/alertes
+    app.get('/api/alertes', (req, res) => {
+      // Requête SQL pour sélectionner toutes les attractions
+      const sql = 'SELECT * FROM alerte';
+    
+      // Exécution de la requête SQL
+      connection.query(sql, (err, results) => {
+        if (err) {
+          console.error('Erreur lors de l\'exécution de la requête SQL : ', err);
+          res.status(500).json({ error: 'Erreur serveur' });
+          return;
+        }
+  
+        
+        
+    
+        // Renvoyer les résultats de la requête au format JSON
+        res.json(results);
+      });
+    });
+
+    app.delete('/api/alertesDel/:id', (req, res) => {
+      const id = req.params.id;
+    
+      // Delete the user from the database
+      connection.query('DELETE FROM alerte WHERE id = ?', [id], (err, result) => {
+        if (err) {
+          console.error('Error:', err);
+          res.status(500).json({ error: 'An error occurred while deleting the alert' });
+        } else {
+          res.status(200).json({ message: 'Alert deleted successfully' });
+        }
+      });
+    });
 
 // Route pour l'inscription
 app.post('/api/register', (req, res) => {
