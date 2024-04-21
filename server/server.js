@@ -241,8 +241,11 @@ app.post('/api/ajoutalertes', (req, res) => {
       res.status(500).json({ error: 'Erreur lors de l\'ajout de l\'alerte' });
       console.log(err);
     } else {
+      // Get the id of the newly created alert
+      const newAlertId = result.insertId;
+
       // Get the newly created alert
-      connection.query('SELECT *, libelle FROM alerte INNER JOIN niveau on alerte.niveau_id = niveau.idNiv WHERE titre = ? AND description = ?', [titre, description], (err, results) => {
+      connection.query('SELECT *, libelle FROM alerte INNER JOIN niveau on alerte.niveau_id = niveau.idNiv WHERE id = ?', [newAlertId], (err, results) => {
         if (err) {
           res.status(500).json({ error: 'Erreur lors de la récupération de l\'alerte' });
         } else {
