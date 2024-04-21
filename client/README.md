@@ -1,70 +1,74 @@
-# Getting Started with Create React App
+# Projet Astérix - Site Web pour les salariés du Parc Astérix
+![Logo Parc Astérix](https://upload.wikimedia.org/wikipedia/fr/thumb/c/c0/Logo_Parc_Astérix_2020.png/800px-Logo_Parc_Astérix_2020.png)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Une agence de développement accompagne une société désireuse de mettre en place une application interne pour son parc. L'objectif est d'améliorer l'efficacité des équipes en leur fournissant un outil convivial. L'application doit respecter la charte graphique de l'entreprise et être accessible sur PC et mobile. Elle sera développée avec des technologies modernes. L'architecture du projet suivra une méthodologie bien définie et sera gérée avec des outils adaptés. Les fonctionnalités de l'application incluent l'authentification, la gestion des attractions, des missions, des avertissements, la création de comptes et la gestion des missions et alertes pour les administrateurs. Le projet nécessite également la rédaction d'une documentation technique complète.
 
-## Available Scripts
+## Liste des Membre du projet
 
-In the project directory, you can run:
+- LEMERCIER Jonathan (Chef de Projet et Développeur)
+- IZIKKI Iliès (Développeur)
+- DELFAU Charles (Développeur)
 
-### `npm start`
+## Fonctionnalités
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- Page d'accueil de l'application Web Asterix
+- Page d'authentification (admin/user)
+- La page des attractions
+- La page avec liste des missions
+- La page des avertissements (Aleter par niveaux de 1 à 4) 
+- Création de compte (ADMIN)
+- Page avec liste des avertissements
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Technologies Utilisées
 
-### `npm test`
+![React](https://img.shields.io/badge/REACT-18.2.0-ffdb58?style=for-the-badge)
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+![MySQL](https://img.shields.io/badge/MySQL-8.3.0-red?style=for-the-badge)
 
-### `npm run build`
+![Javascript](https://img.shields.io/badge/JS-ECMAscript6-ffdb58?style=for-the-badge)
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+![SCSS](https://img.shields.io/badge/SASS-1.75.0-ffdb58?style=for-the-badge)
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+![HTML](https://img.shields.io/badge/HTML5-orange?style=for-the-badge)
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+![CSS](https://img.shields.io/badge/CSS3-blue?style=for-the-badge)
 
-### `npm run eject`
+![CSS](https://img.shields.io/badge/SCSS-green?style=for-the-badge)
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+# Maquette utilisé
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+https://www.figma.com/file/rsdoMNHXU9hgSYU4L27uoO/Projet-Astérix?type=design&node-id=0-1&mode=design&t=QIItV04gTDo8yXGm-0
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+## Installation
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+1. Clonez le projet depuis le dépôt GitHub :
 
-## Learn More
+   ```bash
+   - Ouvrir GitKraken : Démarrez l'application GitKraken sur votre ordinateur.
+   - Ouvrir l'onglet "Clone" : Dans la barre latérale à gauche, cliquez sur l'onglet "Clone".
+   - Coller l'URL du projet : Dans la section "Clone a repo from URL", collez l'URL du projet GitHub que vous avez copiée précédemment.
+   - Choisir le répertoire local : Sélectionnez le répertoire local où vous souhaitez cloner le projet en cliquant sur le bouton "Choose" à côté de "Directory". Vous pouvez également laisser GitKraken choisir un répertoire par défaut.
+   - Cloner le projet : Cliquez sur le bouton "Clone the repo!". GitKraken commencera alors à cloner le projet depuis GitHub vers votre répertoire local spécifié.
+   - Installer les différents modules du projet react présent dans le dossier client (npm i, npm i sass).
+   - Installer les différents modules de l'API présent dans le dossier server (npm i).
+   - Lancer l'API avec la commande node server.js
+   - Lancer le projet REACT avec npm start
+   ```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+   ## Base de données
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+- Il faut lancer WampServer.
 
-### Code Splitting
+![Logo Parc Astérix](https://upload.wikimedia.org/wikipedia/commons/thumb/f/f8/WampServer-logo.png/120px-WampServer-logo.png)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+- Créer la base de données dbasterix avec phpmyadmin
 
-### Analyzing the Bundle Size
+![Logo Parc Astérix](https://symfony.com/uploads/projects/phpmyadmin.png)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+- Il faut donc ensuite importer la base de données qui seras dans le dépot du Projet Git.
 
-### Making a Progressive Web App
+## Jeu de test
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+Le compte admin : bob@gmail.com:Administrateur123@
 
-### Advanced Configuration
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
