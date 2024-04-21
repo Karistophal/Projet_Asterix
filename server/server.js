@@ -166,6 +166,20 @@ app.get('/attraction', (req, res) => {
       });
     });
 
+    app.delete('/api/alertesDel/:id', (req, res) => {
+      const id = req.params.id;
+    
+      // Delete the user from the database
+      connection.query('DELETE FROM alerte WHERE id = ?', [id], (err, result) => {
+        if (err) {
+          console.error('Error:', err);
+          res.status(500).json({ error: 'An error occurred while deleting the alert' });
+        } else {
+          res.status(200).json({ message: 'Alert deleted successfully' });
+        }
+      });
+    });
+
 // Route pour l'inscription
 app.post('/api/register', (req, res) => {
   const { email, password, teamId } = req.body;
