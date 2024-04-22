@@ -3,12 +3,12 @@ import { AuthContext } from "../authContext";
 import MissionCard from "../components/missionCard"
 import "../assets/styles/missions.css";
 import moment from "moment";
+import Button from "../components/bouton";
 
 function Missions() {
 
 
     const { isLoggedIn, isAdmin } = useContext(AuthContext);
-    const token = localStorage.getItem('token');
     let selectedOption, selectedMission = 0;
     let mf = [];
     const now = moment().format('yyyy-MM-D');
@@ -17,7 +17,17 @@ function Missions() {
     const [allStructures, setAllStructures] = useState([]);
     const [FilterMissions, setFilterMissions] = useState([]);
 
+    // variable pour l'ajout de mission
+    const [titreMission, setTitreMission] = useState('');
+    const [commentaireMission, setCommentaireMission] = useState('');
+    const [dateMission, setDateMission] = useState('');
+    const [posteMission, setPosteMission] = useState('');
+    const [structureMission, setStructureMission] = useState('');
+
+
+
     useEffect(() => {
+        const token = localStorage.getItem('token');
         if (!isLoggedIn()) {
             window.location.href = "/auth";
             return;
@@ -86,6 +96,39 @@ function Missions() {
         setFilterMissions(mf);
     };
 
+    const addMission = async () => {
+        console.log("qsdjdnqpls");
+        if (isLoggedIn() && isAdmin() && titreMission !== '' && commentaireMission !== '' && dateMission !== '' && posteMission !== '' && structureMission !== '') {
+            const token = localStorage.getItem('token');
+            try {
+                const response = await fetch("http://localhost:3333/addMission", {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    },
+                    body: JSON.stringify({
+                        titre: titreMission,
+                        commentaire: commentaireMission,
+                        date: dateMission,
+                        poste: posteMission,
+                        structure: structureMission
+                    })
+                });
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                const result = await response.json();
+                setAllMissions([...AllMissions, result]);
+                setFilterMissions([...FilterMissions, result]);
+            } catch (error) {
+                console.error('Erreur:', error);
+            }
+        }
+    };
+
+
+
     return (
 
         <div className="missionsWrapper">
@@ -93,47 +136,50 @@ function Missions() {
                 <div className="adminMissionWrapper">
                     <div className="missionsTitle">Créer une mission</div>
                     <div className="adminMissionButtonWrapper">
-                        <form action="POST">
-                            <input type="text" name="" placeholder="Entrez un titre.." id="" />
-                            <textarea name="" id="" cols="30" rows="2"></textarea>
-                            <input type="date" name="" id="" />
-                            <select name="" id="">
+                        <div className="adminMissionItem">Titre :<input onChange={e => setTitreMission(e.target.value)} type="text" name="" placeholder="Entrez un titre.." id="" /></div>
+                        <div className="adminMissionItem">Description :<textarea onChange={e => setCommentaireMission(e.target.value)} name="" placeholder="Entrez une description.. (optionnel)" id="" cols="30" rows="2"></textarea></div>
+                        <div className="adminMissionItem">Date :<input onChange={e => setDateMission(moment(e.target.value, 'YYYY-MM-DD')._i)} type="date" name="" id="" /></div>
+                        <div className="adminMissionItem">Poste :
+                            <select onChange={e => { setPosteMission(e.target.value); console.log(e.target.value); }} name="" id="">
                                 {allPostes.map(poste => (
-                                    <option key={poste.id} value={poste.id}>{poste.libelle}</option>
+                                    <option key={poste.id} value={poste.poste_id}>{poste.libelle}</option>
                                 ))}
                             </select>
-                            <select name="" id="">
+                        </div>
+                        <div className="adminMissionItem">Structure :
+                            <select onChange={e => { setStructureMission(e.target.value); console.log(e.target); }} name="" id="">
                                 {allStructures.map(structure => (
                                     <option key={structure.id} value={structure.id}>{structure.nom}</option>
                                 ))}
                             </select>
-                        </form>
-                    </div>
+                        </div>
+                    <Button submit={true} onClick={addMission} text="Ajouter" />
                 </div>
-            )
-            }
-            <div className="mesMissionsWrapper">
-                <div className="missionsTitle">Mes missions</div>
-                <div className="missionSelectContainer">
-                    <div>Pour</div>
-                    <select id="taches" name="taches" defaultValue={selectedMission} onChange={selectEvent}>
-                        <option value="Today">Aujourd'hui</option>
-                        <option value="After">Demain</option>
-                        <option value="Past">Passées</option>
-                        <option value="Done">Finies</option>
-                    </select>
                 </div>
-                <div className="missionCardlist">
-                    {FilterMissions.length !== 0 ? (FilterMissions.map(mission => (
-                        <MissionCard key={mission.id} laMission={mission} />
-                    ))
-                    ) : (
-                        <div className="noMission">Il n'y a pas de missions disponibles .</div>
-                    )
-                    }
-                </div>
-            </div>
-        </div>
+    )
+}
+<div className="mesMissionsWrapper">
+    <div className="missionsTitle">Mes missions</div>
+    <div className="missionSelectContainer">
+        <div>Pour</div>
+        <select id="taches" name="taches" defaultValue={selectedMission} onChange={selectEvent}>
+            <option value="Today">Aujourd'hui</option>
+            <option value="After">Demain</option>
+            <option value="Past">Passées</option>
+            <option value="Done">Finies</option>
+        </select>
+    </div>
+    <div className="missionCardlist">
+        {FilterMissions.length !== 0 ? (FilterMissions.map(mission => (
+            <MissionCard key={mission.id} laMission={mission} />
+        ))
+        ) : (
+            <div className="noMission">Il n'y a pas de missions disponibles .</div>
+        )
+        }
+    </div>
+</div>
+        </div >
     );
 }
 

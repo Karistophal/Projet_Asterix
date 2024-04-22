@@ -67,7 +67,7 @@ https://www.figma.com/file/rsdoMNHXU9hgSYU4L27uoO/Projet-Astérix?type=design&no
 
 ## Jeu de test
 
-Le compte admin : Nom d'utilisateur --> P@$$w0rd!2#4
+Le compte admin : Nom d'utilisateur --> SuperAdmin2024
                   Mot de passe --> P@$$w0rd!2#4
-Exemple de compte utilisateur :  Nom d'utilisateur -->user1234
+Exemple de compte utilisateur :  Nom d'utilisateur --> user1234
                                  Mot de passe --> !2qV#Kp$5&*Dn@9Ws%

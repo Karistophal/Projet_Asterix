@@ -1,3 +1,16 @@
+.attractionWrapper {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.attractionTitle {
+  font-weight: 900;
+  font-size: 45px;
+  line-height: 50px;
+  margin-bottom: 30px;
+}
+
 .attractions_list {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -6,8 +19,7 @@
     margin: 0 auto;
     justify-items: center;
     align-items: center;
-    height: 100vh;
-    padding: 20px;
+    flex: 1;
   }
   @media screen and (max-width: 1150px) { /* Adaptez cette valeur selon vos besoins */
     .attractions_list {

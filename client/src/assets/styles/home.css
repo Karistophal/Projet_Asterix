@@ -26,3 +26,23 @@
     gap: 30px;
     width: 45%;
 }
+
+@media (max-width: 1000px) {
+    .homeContainer {
+      flex-direction: column;
+      gap: 50px;
+    }
+    .homeTitle {
+        width: 100%;
+    }
+  }
+
+@media (max-width: 768px) {
+    .homeContainer {
+      flex-direction: column;
+      gap: 50px;
+    }
+    .homeTitle {
+        width: 100%;
+    }
+  }

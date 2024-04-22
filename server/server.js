@@ -148,9 +148,9 @@ app.get('/attraction', (req, res) => {
     });
 
   // Route GET /admin/comptes
-  app.get('/api/comptes', (req, res) => {
+  app.get('/comptes', (req, res) => {
     // Requête SQL pour sélectionner toutes les attractions
-    const sql = 'SELECT * FROM utilisateur';
+    const sql = 'SELECT * FROM utilisateur inner join equipe on utilisateur.equipe_id = equipe.equipe_id order by utilisateur.equipe_id';
   
     // Exécution de la requête SQL
     connection.query(sql, (err, results) => {
@@ -162,6 +162,21 @@ app.get('/attraction', (req, res) => {
 
       
       
+  
+      // Renvoyer les résultats de la requête au format JSON
+      res.json(results);
+    });
+  });
+
+  app.get('/equipes', (req, res) => {
+  
+    // Exécution de la requête SQL
+    connection.query('select * from equipe', (err, results) => {
+      if (err) {
+        console.error('Erreur lors de l\'exécution de la requête SQL : ', err);
+        res.status(500).json({ error: 'Erreur serveur' });
+        return;
+      }
   
       // Renvoyer les résultats de la requête au format JSON
       res.json(results);
@@ -291,6 +306,20 @@ app.post('/api/ajoutalertes', (req, res) => {
     } else {
       res.status(200).json(results); 
     }
+    });
+  });
+
+  app.post('/addMission', verifyToken, (req, res) => {
+    let { titre, description, date, poste, structure } = req.body;
+    if (description === undefined) {description = '';}
+    console.log(titre, description, date, poste, structure);
+
+    connection.query('INSERT INTO missiondujour (titre, description, date, poste_id, structure) VALUES (?, ?, ?, ?, ?)', [titre, description, date, poste, structure], (err, result) => {
+      if (err) {
+        res.status(500).json({ error: 'Erreur lors de l\'ajout de la mission' });
+      } else {
+        res.status(201).json({ message: 'Mission ajoutée avec succès' });
+      }
     });
   });
 

@@ -38,3 +38,9 @@ code {
   flex-direction: column;
   padding-inline: 200px;
 }
+
+@media (max-width: 768px) {
+  .app {
+    padding-inline: 50px;
+  }
+}

@@ -76,14 +76,18 @@ function Alertes() {
             {isAdmin() && (
                 <div>
                     <div className="alerteTitle">Créer une Alerte</div>
-                    <input type="text" value={titre} onChange={e => setTitre(e.target.value)} required />
-                    <textarea value={description} onChange={e => setDescription(e.target.value)} required />
-                    <select value={importance} onChange={e => setImportance(e.target.value)} required>
-                        {importanceOptions.map((option, index) => (
-                            <option value={option.idNiv} key={index}>{option.libelle}</option>
-                        ))}
-                    </select>
-                    <Button onClick={() => handleAdd()} text={'Ajouter'} />
+                    <div className="createAlerteWrapper">
+                        <div className="createAlerteItem">Titre :<input type="text" value={titre} onChange={e => setTitre(e.target.value)} required /></div>
+                        <div className="createAlerteItem">Description :<textarea value={description} onChange={e => setDescription(e.target.value)} required /></div>
+                        <div className="createAlerteItem">Importance :
+                            <select value={importance} onChange={e => setImportance(e.target.value)} required>
+                                {importanceOptions.map((option, index) => (
+                                    <option value={option.idNiv} key={index}>{option.libelle}</option>
+                                ))}
+                            </select>
+                        </div>
+                        <Button taille={"xl"} submit={true} onClick={handleAdd} text={'Ajouter'} />
+                    </div>
                 </div>
             )}
             <div className="alerteTitle">Les Alertes En cours</div>
@@ -91,11 +95,13 @@ function Alertes() {
                 {data.map((item, index) => (
                     <div className='leAlerte'>
                         <div className={item.id} key={item.id}>
-                            <p>{`titre: ${item.titre} - description: ${item.description} - importance: ${item.libelle}`}</p>
+                            <div className="alerteItem">Titre : <div className="alerteItemValue">{item.titre}</div></div>
+                            <div className="alerteItem">Description : <div className="alerteItemValue">{item.description}</div></div>
+                            <div className="alerteItem">Importance : <div className="alerteItemValue">{item.libelle}</div></div>
                         </div>
                         {isAdmin() && (
                             <div className="zoneValider">
-                                <Button onClick={() => handleDelete(item.id)} text={'Supprimer'} taille={"xl"}></Button>
+                                <Button submit={true} onClick={() => handleDelete(item.id)} text={'Supprimer'} taille={"xl"}></Button>
                             </div>
                         )}
                     </div>
