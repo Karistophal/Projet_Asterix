@@ -3,6 +3,7 @@ import '../../assets/styles/auth.css';
 import { useNavigate } from "react-router-dom";
 import LogoProfile from '../../assets/images/logo_asterix.png'
 import React, { useState } from 'react';
+import Button from '../../components/bouton';
 
 function Authentification() {
 
@@ -41,10 +42,8 @@ function Authentification() {
       if (!response.ok) {
         throw new Error('Network response was not ok');
       }
-  
       const data = await response.json();
       localStorage.setItem('token', data.token); // Stockez le token dans le stockage local
-  
       handleClick();
     } catch (error) {
       console.error('Connection error:', error);
@@ -77,7 +76,7 @@ function Authentification() {
             </div>
 
             <div className="zoneValider">
-              <button id="boutonValider" type="submit" className="boutonValider" onClick={ handleSubmit }><span>Valider</span><i></i></button>
+              <Button onClick={ handleSubmit } submit={true} text={"Valider"} taille={"xl"} ></Button>
             </div>
 
           </div>

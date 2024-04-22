@@ -7,7 +7,7 @@ export const AuthProvider = ({ children }) => {
 
   const isLoggedIn = () => {
     const token = localStorage.getItem('token');
-    if (!token) {
+    if (token === 'undefined' || token === null || token === false) {
       return false;
     }
     const decodedToken = jwtDecode(token);
@@ -34,10 +34,19 @@ export const AuthProvider = ({ children }) => {
     window.location.reload();
   }
 
+  const idUser = () => {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      return false;
+    }
+    const decodedToken = jwtDecode(token);
+    return decodedToken.id;
+  }
+
 
 
   return (
-    <AuthContext.Provider value={{ isLoggedIn, isAdmin, logout }}>
+    <AuthContext.Provider value={{ isLoggedIn, isAdmin, logout, idUser }}>
       {children}
     </AuthContext.Provider>
   );

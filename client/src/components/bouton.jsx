@@ -1,7 +1,7 @@
 import React from "react";
 import "../assets/styles/bouton.css"
 
-function Button({ taille, text, path }) {
+function Button({ taille, text, path, submit, onClick}) {
   let styleBtn = {
     padding: "10px 20px",
     fontSize: "14px"
@@ -27,7 +27,10 @@ function Button({ taille, text, path }) {
   }
 
   return (
-    <a href={path} className="button" style={styleBtn}>{text}</a>
+    submit ? ( 
+    <button type="submit" className="button" style={styleBtn} onClick={onClick}>{text}</button> 
+  ) : (
+  <a href={path} className="button" style={styleBtn}>{text}</a>)
   );
 }
 

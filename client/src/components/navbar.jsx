@@ -6,7 +6,7 @@ import { AuthContext } from '../authContext';
 
 
 function Navbar() {
-  const { isLoggedIn, logout } = useContext(AuthContext);
+  const { isLoggedIn, logout, isAdmin } = useContext(AuthContext);
 
   return (
     <nav className='nav-container'>
@@ -18,8 +18,11 @@ function Navbar() {
           {isLoggedIn() && (
             <>
               <a href="/missions"><div className='link'>Missions</div></a>
-              <a href="/settings"><div className='link'>Alerte</div></a>
+              <a href="/alertes"><div className='link'>Alerte</div></a>
             </>
+          )}
+          {isAdmin() && (
+            <a href="/admin/comptes" className='link'>Gestion comptes</a>
           )}
           <div className='search-bar'>
             {!isLoggedIn() ? (

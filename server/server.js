@@ -33,7 +33,7 @@ app.listen(port, function(err){
 
 const tokenCryptageClee = "les_2PiEDsD'ILIESsont576DELici3UX*"; 
 function generateToken(user, admin) { 
-  return jwt.sign({user : user, admin : admin}, tokenCryptageClee, { expiresIn: '20s', }); 
+  return jwt.sign({user : user, admin : admin}, tokenCryptageClee, { expiresIn: '500s', }); 
 } 
 
 allUsers = () => {
@@ -105,7 +105,7 @@ allUsers = () => {
   // Route GET /attractions
 app.get('/attraction', (req, res) => {
   // Requête SQL pour sélectionner toutes les attractions
-  const sql = "SELECT nom, image, description, tailleMini, lieu FROM structure WHERE theme LIKE '%Montagnes Russes'";
+  const sql = "SELECT nom, image, description, tailleMini, lieu FROM structure inner join typestructure on structure.typeStructure = typeStructure.id WHERE typestructure.libelle = 'Attraction'";
   // Exécution de la requête SQL
   connection.query(sql, (err, results) => {
     if (err) {
@@ -113,12 +113,39 @@ app.get('/attraction', (req, res) => {
       res.status(500).json({ error: 'Erreur serveur' });
       return;
     }
-    
-
-    // Renvoyer les résultats de la requête au format JSON
     res.json(results);
   });
 });
+
+  // Route GET /structures
+  app.get('/structures', (req, res) => {
+    // Requête SQL pour sélectionner toutes les structures
+    const sql = "select * from structure";
+    // Exécution de la requête SQL
+    connection.query(sql, (err, results) => {
+      if (err) {
+        console.error('Erreur lors de l\'exécution de la requête SQL : ', err);
+        res.status(500).json({ error: 'Erreur serveur' });
+        return;
+      }
+      res.json(results);
+    });
+  });
+
+    // Route GET /postes
+    app.get('/postes', (req, res) => {
+      // Requête SQL pour sélectionner toutes les postes
+      const sql = "select * from poste";
+      // Exécution de la requête SQL
+      connection.query(sql, (err, results) => {
+        if (err) {
+          console.error('Erreur lors de l\'exécution de la requête SQL : ', err);
+          res.status(500).json({ error: 'Erreur serveur' });
+          return;
+        }
+        res.json(results);
+      });
+    });
 
   // Route GET /admin/comptes
   app.get('/api/comptes', (req, res) => {
@@ -144,7 +171,7 @@ app.get('/attraction', (req, res) => {
     // Route GET /admin/alertes
     app.get('/api/alertes', (req, res) => {
       // Requête SQL pour sélectionner toutes les attractions
-      const sql = 'SELECT *, libelle FROM alerte Inner Join niveau on alerte.niveau_id = niveau.idNiv';
+      const sql = 'SELECT *, libelle FROM alerte Inner Join niveau on alerte.niveau_id = niveau.idNiv order by alerte.niveau_id desc';
     
       // Exécution de la requête SQL
       connection.query(sql, (err, results) => {
@@ -267,3 +294,24 @@ app.post('/api/ajoutalertes', (req, res) => {
     });
   });
 
+  app.post('/missions/valider', verifyToken, (req, res) => { 
+    const {missionId} = req.body; 
+    connection.query('UPDATE missiondujour SET valide = 1 WHERE id = ?', [missionId], (err, results) => { 
+      if (err) { 
+        res.status(500).json({ error: 'Erreur lors de la validation de la mission' }); 
+      } else { 
+        res.status(200).json({ message: 'Mission validée avec succès' }); 
+      } 
+    }); 
+  });
+
+  app.post('/missions/commenter', verifyToken, (req, res) => {
+    const { missionId, commentaire } = req.body;
+    connection.query('UPDATE missiondujour SET commentaire = ? WHERE id = ?', [commentaire, missionId], (err, results) => {
+      if (err) {
+        res.status(500).json({ error: 'Erreur lors de l\'ajout du commentaire' });
+      } else {
+        res.status(200).json({ message: 'Commentaire ajouté avec succès' });
+      }
+    });
+  });
