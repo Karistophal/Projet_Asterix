@@ -9,9 +9,9 @@ function Home() {
     return (
         <div className="homeWrapper">
             <div className="homeContainer">
-                <div className="title">Bienvenue sur la gestion du Parc Astérix.</div>
-                <div className="buttonWrapper">
-                    <Button taille="xl" text="Connexion" path="/connexion" />
+                <div className="homeTitle">Bienvenue sur la gestion du Parc Astérix.</div>
+                <div className="homeButtonWrapper">
+                    <Button taille="xl" text="Connexion" path="/auth" />
                     {!isLoggedIn && <Button taille="xl" text="Attractions" path="/attractions" />}
                     {isLoggedIn && <Button taille="xl" text="Mes missions" path="/missions" />}
                 </div>

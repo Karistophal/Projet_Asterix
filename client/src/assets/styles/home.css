@@ -12,14 +12,14 @@
     width: 100%;
 }
 
-.title {
+.homeTitle {
     width: 55%;
     font-weight: 900;
     font-size: 45px;
     line-height: 50px;
 }
 
-.buttonWrapper {
+.homeButtonWrapper {
     display: flex;
     align-items: center;
     justify-content: center;

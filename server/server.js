@@ -1,22 +1,22 @@
-const express=require('express');
-const app=express();
-const mysql=require('mysql');
-const port=3333;
-const cors=require('cors');
-const bodyParser=require('body-parser');
-const jwt=require('jsonwebtoken');
-const bcrypt=require('bcrypt');
-app.use(cors());
-app.use(bodyParser.json());
-app.use(express.json());
+const express=require('express'); 
+const app=express(); 
+const mysql=require('mysql'); 
+const port=3333; 
+const cors=require('cors'); 
+const bodyParser=require('body-parser'); 
+const jwt=require('jsonwebtoken'); 
+const bcrypt=require('bcrypt'); 
+app.use(cors()); 
+app.use(bodyParser.json()); 
+app.use(express.json()); 
 
-const connection = mysql.createConnection({
-    timezone : 'UTC',
-    host: 'localhost',
-    user: 'root',
-    password: '',
-    database: 'dbasterix'
-});
+const connection = mysql.createConnection({ 
+  timezone : 'UTC', 
+  host: 'localhost', 
+  user: 'root', 
+  password: '', 
+  database: 'dbasterix' 
+}); 
 
 connection.connect((err) => {
     if (err) {
@@ -31,9 +31,10 @@ app.listen(port, function(err){
     console.log("Server listening on Port", port);
 })
 
-function generateToken(user) {
-  return jwt.sign({user : user}, '1234', { expiresIn: '120s', });
-}
+const tokenCryptageClee = "les_2PiEDsD'ILIESsont576DELici3UX*"; 
+function generateToken(user, admin) { 
+  return jwt.sign({user : user, admin : admin}, tokenCryptageClee, { expiresIn: '20s', }); 
+} 
 
 allUsers = () => {
   return new Promise((resolve, reject) => {
@@ -47,29 +48,24 @@ allUsers = () => {
   });
 };
 
-// Route pour l'authentification
-app.post('/api/login', async (req, res) => {
-  trouve = false;
-    users = await allUsers();
-    users.forEach(user => {
-      console.log(req.body.username);
-      console.log(req.body.password);
-      console.log(user.adresse_mail);
-      console.log(user.mot_de_passe)
-      if(user.adresse_mail === req.body.username && user.mot_de_passe === req.body.password)
-      {
-        const token = generateToken(req.body.username);
-        console.log("Connexion réussie");
-        trouve = true;
-        console.log(token);
-        res.send({ token });
-      }
-    });
-    if(trouve === false){
-    console.log("Connexion échouée");
-      res.send({ error: 'Email ou mot de passe incorrect' });
-    }
-  });
+  // Route pour l'authentification 
+  app.post('/api/login', async (req, res) => { 
+    trouve = false; 
+      users = await allUsers(); 
+      users.forEach(user => { 
+        if(user.adresse_mail === req.body.username && user.mot_de_passe === req.body.password) 
+        { 
+          const token = generateToken(user.user_id, user.admin); 
+          console.log("Connexion réussie"); 
+          trouve = true; 
+          res.send({ token }); 
+        } 
+      }); 
+      if(trouve === false){ 
+      console.log("Connexion échouée"); 
+        res.send({ error: 'Email ou mot de passe incorrect' }); 
+      } 
+    }); 
 
   app.delete('/api/comptesDel/:id', (req, res) => {
     const id = req.params.id;
@@ -87,12 +83,12 @@ app.post('/api/login', async (req, res) => {
   
   // Middleware pour protéger les routes privées
   function verifyToken(req, res, next) {
-    const token = req.headers['authorization'];
+    const token = req.headers['authorization'].split(' ')[1];
     if (!token) {
       return res.status(403).json({ error: 'Token manquant' });
     }
   
-    jwt.verify(token, '1234', (err, decoded) => {
+    jwt.verify(token, tokenCryptageClee, (err, decoded) => {
       if (err) {
         return res.status(401).json({ error: 'Token invalide' });
       }
@@ -100,11 +96,11 @@ app.post('/api/login', async (req, res) => {
       next();
     });
   }
-  
-  // Exemple de route privée
-  app.get('/profile', verifyToken, (req, res) => {
-    res.json({ message: 'Route protégée', user: req.user });
-  });
+
+  app.get('/tokenVerify', verifyToken, (req, res) => { 
+    res.status(200).json({ message: 'Token valide' });
+  }); 
+
 
   // Route GET /attractions
 app.get('/attraction', (req, res) => {
@@ -257,26 +253,17 @@ app.post('/api/ajoutalertes', (req, res) => {
   
   // Mes missions requete 
   app.get('/missions', verifyToken, (req, res) => {
-    const userEmail = req.user.adresse_mail;
+    //recuperation de l'id de l'utilisateur dans le token 
+    const user_id = req.user.user; 
 
-    connection.query('SELECT missiondujour.*, structure.image, structure.nom from missiondujour inner join poste on poste.poste_id = missiondujour.poste_id INNER JOIN equipe ON equipe.equipe_id = poste.equipe_id INNER JOIN utilisateur ON utilisateur.equipe_id = equipe.equipe_id inner join structure on missiondujour.structure = structure.id WHERE utilisateur.adresse_mail = ?', [userEmail], (err, results) => {
-      if (err) {
-        res.status(500).json({ error: 'Erreur lors de la récupération des missions de l\'utilisateur' });
-      } else {
-        res.status(200).json(results); 
-      }
+    //requete pour recuperer les missions de l'utilisateur 
+    connection.query('SELECT missiondujour.*, structure.image, structure.nom from missiondujour inner join poste on poste.poste_id = missiondujour.poste_id INNER JOIN equipe ON equipe.equipe_id = poste.equipe_id INNER JOIN utilisateur ON utilisateur.equipe_id = equipe.equipe_id inner join structure on missiondujour.structure = structure.id WHERE utilisateur.user_id = ?', [user_id], (err, results) => { 
+      //si erreur       
+    if (err) {
+      res.status(500).json({ error: 'Erreur lors de la récupération des missions de l\'utilisateur' });
+    } else {
+      res.status(200).json(results); 
+    }
     });
-});
-
-  // Mes missions requete 
-  app.get('/missionss', (req, res) => {
-
-    connection.query('SELECT missiondujour.*, structure.image, structure.nom from missiondujour inner join poste on poste.poste_id = missiondujour.poste_id INNER JOIN equipe ON equipe.equipe_id = poste.equipe_id INNER JOIN utilisateur ON utilisateur.equipe_id = equipe.equipe_id inner join structure on missiondujour.structure = structure.id WHERE utilisateur.adresse_mail = "utilisateur1@example.com"', (err, results) => {
-      if (err) {
-        res.status(500).json({ error: 'Erreur lors de la récupération des missions de l\'utilisateur' });
-      } else {
-        res.status(200).json(results); 
-      }
-    });
-});
+  });
 
