@@ -1,6 +1,11 @@
 .nav-container {
-    padding-inline: 100px;
+    display: flex;
+    justify-content: center;
     margin-bottom: 50px;
+}
+
+.nav-container ul {
+    width: 1000px;
 }
 
 li{

@@ -6,18 +6,21 @@
     gap: 30px;
 }
 
-.title {
+.missionsTitle {
     width: fit-content;
+    font-weight: 900;
+    font-size: 45px;
+    line-height: 50px;
 }
 
-.selectContainer {
+.missionSelectContainer {
     display: flex;
     font-weight: 700;
     font-size: 18px;
     gap: 10px;
 }
 
-.cardlist {
+.missionCardlist {
     display: flex;
     gap: 50px;
 }

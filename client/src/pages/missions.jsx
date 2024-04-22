@@ -1,12 +1,14 @@
-import React, { useState, useEffect } from "react";
-import { Navigate } from "react-router-dom";
+import React, { useState, useEffect, useContext} from "react";
+import { AuthContext } from "../authContext";
 import MissionCard from "../components/missionCard"
 import "../assets/styles/missions.css";
 import moment from "moment";
 
 function Missions() {
 
-    const isLoggedIn = true; // User connecté
+    
+    const { isLoggedIn } = useContext(AuthContext);
+    const token = localStorage.getItem('token');
     let selectedOption, selectedMission = 0;
     let mf = [];
     const now = moment().format('yyyy-MM-D');
@@ -14,22 +16,26 @@ function Missions() {
     const [FilterMissions, setFilterMissions] = useState([]);
 
     useEffect(() => {
-        fetch("http://localhost:3333/missionss")
-            .then(res => res.json())
-            .then(result => {
-                setAllMissions(result);
-                setFilterMissions(result.filter(m => m.date.substring(0, m.date.indexOf('T')) == now))
-            })
-            .catch(error => console.error('Erreur:', error));
+        if (!isLoggedIn()) {
+            window.location.href = "/auth";
+            return;
+        }
+        fetch("http://localhost:3333/missions", {
+            method: 'GET', // Spécification de la méthode GET
+            headers:{
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}` // Utilisation du token dans l'en-tête Authorization
+            }
+        })
+        .then(res => res.json())
+        .then(result => {
+            setAllMissions(result);
+            // Filtrer les missions au chargement pour aujourd'hui
+            setFilterMissions(result.filter(m => m.date.substring(0, m.date.indexOf('T')) == now))
+        })
+        .catch(error => console.error('Erreur:', error));
     }, []);
 
-
-   
-
-
-    if (isLoggedIn === false) {
-        return <Navigate to="/connexion" />
-    }
 
     const selectEvent = (event) => {
         selectedOption = event.target.value;
@@ -60,8 +66,8 @@ function Missions() {
 
     return (
         <div className="missionsWrapper">
-            <div className="title">Mes missions</div>
-            <div className="selectContainer">
+            <div className="missionsTitle">Mes missions</div>
+            <div className="missionSelectContainer">
                 <div>Pour</div>
                 <select id="taches" name="taches" defaultValue={selectedMission} onChange={selectEvent}>
                     <option value="Today">Aujourd'hui</option>
@@ -70,7 +76,7 @@ function Missions() {
                     <option value="Done">Finies</option>
                 </select>
             </div>
-            <div className="cardlist">
+            <div className="missionCardlist">
                 {FilterMissions.length !== 0 ? (FilterMissions.map(mission => (
                         <MissionCard key={mission.id} laMission={mission} />
                      ))
