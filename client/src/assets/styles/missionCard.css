@@ -1,0 +1,67 @@
+.cardWrapper  {
+    position: relative;
+    width: 400px;
+    height: 450px;
+    padding: 15px;
+    border-radius: 10px;
+    background-color:darkgrey;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    color: aliceblue;
+    font-weight: 700;
+    overflow: hidden;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.294),0 4px 6px -2px rgba(0,0,0,.05);
+}
+
+.cardTitle {
+    text-shadow: 1px 0px 10px #323232;
+    font-size: 1.3rem;
+}
+
+.cardInfo {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    padding: 10px;
+    width: 100%;
+    min-height: 35%;
+    background-color: rgb(226, 236, 237);
+    color: #333;
+    display: flex;
+    flex-direction: column;
+}
+
+.cardInfoText {
+    font-size: 0.9rem;
+    padding-left: 1.5rem;
+}
+
+.cardInfoTitle {
+    display: flex;
+    justify-content: space-between;
+    text-decoration: underline;
+}
+
+.cardBottomWrapper {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    flex: 1;
+}
+
+.cardAction {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.cardCommenter img {
+    width: 2em;
+    cursor: pointer;
+}
+
+.cardCommentaireText {
+    width: 100%;
+}

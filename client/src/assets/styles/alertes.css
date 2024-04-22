@@ -1,0 +1,41 @@
+.leAlerte{
+    display: flex;
+    justify-content:space-between;
+    align-items: center;
+    gap: 10px;
+    min-height: 100px;
+    border-bottom: solid 1px #333;
+}
+
+
+.alerteTitle {
+    font-size: 3em;
+    font-weight: 900;
+    display: flex;
+    align-items: center;
+    height: 100px;
+}
+
+.createAlerteWrapper {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    gap: 40px;
+}
+
+.createAlerteItem {
+    display: flex;
+    flex-direction: column;
+}
+
+.alerteItem {
+    display: flex;
+    gap: 10px;
+    font-weight: 800;
+    font-size: 1.2em;
+}
+
+.alerteItemValue {
+    font-weight: normal;
+    font-size: 1em;
+}
