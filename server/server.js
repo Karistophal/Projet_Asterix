@@ -53,17 +53,17 @@ allUsers = () => {
     trouve = false; 
       users = await allUsers(); 
       users.forEach(user => { 
-        if(user.adresse_mail === req.body.username && user.mot_de_passe === req.body.password) 
+        if(user.adresse_mail === req.body.username && bcrypt.compareSync(req.body.password, user.mot_de_passe)) 
         { 
           const token = generateToken(user.user_id, user.admin); 
           console.log("Connexion réussie"); 
           trouve = true; 
           res.send({ token }); 
-        } 
+        }
       }); 
       if(trouve === false){ 
       console.log("Connexion échouée"); 
-        res.send({ error: 'Email ou mot de passe incorrect' }); 
+      res.status(401).json({ error: 'Connexion échouée' }); 
       } 
     }); 
 
@@ -239,38 +239,39 @@ app.get('/attraction', (req, res) => {
       });
     });
 
+
 // Route pour l'inscription
-app.post('/api/register', (req, res) => {
-  const { email, password, teamId } = req.body;
-  // Vérifier si l'email existe déjà dans la base de données
-  connection.query('SELECT * FROM utilisateur WHERE adresse_mail = ?', [email], (err, results) => {
-    if (err) {
-      res.status(500).json({ error: 'Erreur lors de la vérification de l\'email' });
-    } else if (results.length > 0) {
-      res.status(409).json({ error: 'Email déjà utilisé' });
-    } else {
-      // Insérer les données de l'utilisateur dans la base de données
-      connection.query('INSERT INTO utilisateur (adresse_mail, mot_de_passe, equipe_id, admin) VALUES (?, ?, ?, 0)', [email, password, teamId], (err, result) => {
-        if (err) {
-          res.status(500).json({ error: 'Erreur lors de l\'ajout de l\'utilisateur' });
-        } else {
-          // Get the newly created user
-          connection.query('SELECT * FROM utilisateur WHERE adresse_mail = ?', [email], (err, results) => {
-            if (err) {
-              res.status(500).json({ error: 'Erreur lors de la récupération de l\'utilisateur' });
-            } else {
-              res.status(201).json(results[0]); // Return the newly created user
-            }
-          });
-        }
-      });
-    }
+  app.post('/api/register', verifyToken, (req, res) => {
+    const { email, password, teamId, admin } = req.body;
+    console.log(email, password, teamId, admin);
+    // Vérifier si l'email existe déjà dans la base de données
+    connection.query('SELECT * FROM utilisateur WHERE adresse_mail = ?', [email], (err, results) => {
+      if (err) {
+        res.status(500).json({ error: 'Erreur lors de la vérification de l\'email' });
+      } else if (results.length > 0) {
+        res.status(409).json({ error: 'Email déjà utilisé' });
+      } else {
+        // Insérer les données de l'utilisateur dans la base de données
+        connection.query('INSERT INTO utilisateur (adresse_mail, mot_de_passe, equipe_id, admin) VALUES (?, ?, ?, ?)', [email, bcrypt.hashSync(password, 10), teamId, admin], (err, result) => {
+          if (err) {
+            res.status(500).json({ error: 'Erreur lors de l\'ajout de l\'utilisateur' });
+          } else {
+            // Get le nouvel utilisateur créé
+            connection.query('SELECT adresse_mail, mot_de_passe, equipe.libelle, admin FROM utilisateur inner join equipe on equipe.equipe_id = utilisateur.equipe_id WHERE adresse_mail = ?', [email], (err, results) => {  
+              if (err) {
+                res.status(500).json({ error: 'Erreur lors de la récupération de l\'utilisateur' });
+              } else {
+                res.status(201).json(results[0]);
+              }
+            });
+          }
+        });
+      }
+    });
   });
-});
 
 app.post('/api/ajoutalertes', (req, res) => {
   const { titre, description, importance } = req.body;
-  console.log(importance);
 
   // Insérer les données de l'alerte dans la base de données
   connection.query('INSERT INTO alerte (titre, description, niveau_id) VALUES (?, ?, ?)', [titre, description, importance], (err, result) => {

@@ -39,3 +39,33 @@
     font-weight: normal;
     font-size: 1em;
 }
+
+@media screen and (max-width: 768px){
+    .createAlerteWrapper {
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+    }
+
+    .alerteTitle {
+        margin-top: 20px;
+        font-size: 2em;
+        justify-content: center;
+    }
+
+    .leAlerte {
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding-bottom: 20px;
+    }
+}
+
+@media screen and (max-width: 600px){
+    .alerteItem {
+        flex-direction: column;
+        gap: 0px;
+        font-size: 1em;
+    }
+}

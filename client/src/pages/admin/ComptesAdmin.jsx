@@ -28,11 +28,16 @@ function ComptesAdmin() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [teamId, setTeamId] = useState('');
+    const [admin, setAdmin] = useState(false);
 
     const handleAdd = async (event) => {
+        const token = localStorage.getItem('token');
         event.preventDefault();
         if (!isLoggedIn() || !isAdmin()) {
             window.location.href = '/auth';
+            return;
+        }
+        if (!window.confirm('Voulez-vous vraiment ajouter cet utilisateur?')) {
             return;
         }
         try {
@@ -40,10 +45,12 @@ function ComptesAdmin() {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + token,
                 },
-                body: JSON.stringify({ email, password, teamId }),
+                body: JSON.stringify({ email, password, teamId, admin }),
             });
             if (!response.ok) {
+                window.alert('Erreur lors de l\'ajout de l\'utilisateur : ' + (await response.json()).error);
                 throw new Error('Network response was not ok');
             }
 
@@ -56,6 +63,13 @@ function ComptesAdmin() {
     };
 
     const handleDelete = async (id) => {
+        if (!isLoggedIn() || !isAdmin()) { // Vérifiez si l'utilisateur est connecté et est un administrateur
+            window.location.href = '/auth';
+            return;
+        }
+        if (!window.confirm('Voulez-vous vraiment supprimer cet utilisateur?')) { // Demandez à l'utilisateur de confirmer la suppression
+            return;
+        }
         try {
             const response = await fetch(`http://localhost:3333/api/comptesDel/${id}`, {
                 method: 'DELETE',
@@ -82,11 +96,13 @@ function ComptesAdmin() {
                     <div className="infoAddAccount"><div className="child">Mot de passe :</div><div className="infoAddAccountItem"><input type="text" value={password} onChange={e => setPassword(e.target.value)} required /></div></div>
                     <div className="infoAddAccount"><div className="child">Equipe :</div><div className="infoAddAccountItem">
                         <select value={teamId} onChange={e => setTeamId(e.target.value)} required>
-                            {equipes.map((item, index) => (
-                                <option key={index} value={item.equipe_id}>{item.libelle}</option>
+                            <option value="" disabled selected hidden>Sélectionnez une équipe</option>
+                            {equipes.map((item) => (
+                                <option key={item.equipe_id} value={item.equipe_id}>{item.libelle}</option>
                             ))}
                         </select>
                     </div></div>
+                    <div className="infoAddAccount"><div className="child">Admin :</div><div className="infoAddAccountItem">        <input type="checkbox" checked={admin} onChange={(e) => { setAdmin(e.target.checked); console.log(e.target.checked); }} /></div></div>
                     <Button taille={"xl"} submit={true} text={"Ajouter"}/>
                 </form>
             </div>
@@ -97,7 +113,6 @@ function ComptesAdmin() {
                     <div className='leCompte' key={index}>
                         <div className="zoneInfo">
                             <div className="infoCompte">Email: <div className="infoCompteItem">{item.adresse_mail}</div></div>
-                            <div className="infoCompte">Mot de passe: <div className="infoCompteItem">{item.mot_de_passe}</div></div>
                             <div className="infoCompte">Equipe: <div className="infoCompteItem">{item.libelle}</div></div>
                             <div className="infoCompte">Admin: <div className="infoCompteItem">{item.admin ? "oui" : "non"}</div></div>
                         </div>

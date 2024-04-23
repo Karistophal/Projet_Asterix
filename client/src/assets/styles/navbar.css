@@ -1,4 +1,5 @@
 .nav-container {
+    position: relative;
     display: flex;
     justify-content: center;
     margin-bottom: 50px;
@@ -8,31 +9,43 @@
     width: 1000px;
 }
 
+.nav-container a{
+    height: 100%;
+    font-weight: bold;
+    text-decoration: none;
+    color: #333;
+}
+
 li{
-    flex-direction: row;
-    gap: 4vw;
     display: flex;
-    justify-content: left;
+    justify-content: space-between;
     align-items: center;
     list-style: none;
     text-decoration: none;
 }
-@media screen and (max-width: 992px) {
-    li{
-        flex-direction: column;
-    }
+
+.navItems {
+    display: flex;
+    align-items: center;
+    gap: 40px;
 }
-a{
-    height: 100%;
-    font-weight: bold;
-    text-decoration: none;
-    color:black;
+
+.burgerButton {
+    position: absolute;
+    display: flex;
+    padding: 10px;
+    background-color: #ffffff;
+    box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.2);
+    height: max-content;
+    top: 0;
+    right: -60px;
+    cursor: pointer;
 }
-@media screen and (max-width: 992px) {
-    .link:hover{
-        background-color: #10bc5c;
-    }
+
+.burgerButton img{
+    width: 40px;
 }
+
 .logo-asterix{
     height:90px;
     width: auto;
@@ -49,43 +62,51 @@ a{
     margin-left: 10px;
 }
 
-.btn_cnnx:hover{
-    text-decoration: underline;
-    transform:scale(1.1);
+
+
+
+
+@media screen and (max-width: 992px) {
+    .link:hover{
+        background-color: #ababab;
+    }
+    .navItems {
+        gap: 30px;
+    }    
 }
-.logo-profile{
-    transition: 0.5 ease;
-    width: 50px;
-    height: 100%;
-}
-.logo-profile:hover{
-    transform: scale(1.1);
-}
-.search-icon{
-    transition: 0.5 ease;
-    width: 50px;
-    height: 100%;
-}
-.search-icon:hover{
-    transform: scale(1.1);
-}
-.search-bar{
-    display: flex;
-    text-align: right;
-    align-items:center;
-    justify-content: right;
-    width: 100%;
-    height: 100%;
-    border: none;
-    padding: 10px;
-    font-size: 16px;
-    border-radius: 5px;
-    margin-left: 10px;
-}
+
 @media screen and (max-width: 992px) {
     .search-bar{
         text-align: center;
         align-items: center;
         justify-content: center;
     }
+}
+
+@media screen and (max-width: 767px) {
+    .nav-container{
+        position: absolute;
+        top: 0;
+        left: -250px;
+        background-color: rgb(255, 255, 255);
+        z-index: 1000;
+        width: 250px;
+        padding: 20px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+        transition: ease 0.5s;
+    }
+    .active {
+        left: 0;
+    }
+    li{
+        flex-direction: column;
+        gap: 30px;
+    }
+    .navItems {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+    }
+    
 }

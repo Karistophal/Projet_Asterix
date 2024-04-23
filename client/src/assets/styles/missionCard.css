@@ -18,6 +18,10 @@
     text-shadow: 1px 0px 10px #323232;
     font-size: 1.3rem;
 }
+.cardStructure {
+    text-shadow: 1px 0px 10px #323232;
+    font-size: 1rem;
+}
 
 .cardInfo {
     position: absolute;

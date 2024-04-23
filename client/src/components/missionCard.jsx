@@ -68,7 +68,10 @@ function Card(laMission) {
 
   return (
     <div className="cardWrapper" style={{ backgroundImage: `url(${mission.image})` }}>
-      <div className="cardTitle">{mission.titre}</div>
+      <div className="cardTitleWrapper">
+        <div className="cardTitle">{mission.titre}</div>
+        <div className="cardStructure">Structure : {mission.nom}</div>
+      </div>
       <div className="cardInfo">
         {mission.description !== null ? (
           <div className="cardDescriptionWrapper">

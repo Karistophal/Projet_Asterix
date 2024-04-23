@@ -9,7 +9,7 @@
 .missionsTitle {
     width: fit-content;
     font-weight: 900;
-    font-size: 45px;
+    font-size: 3em;
     line-height: 50px;
     margin-bottom: 30px;
 }
@@ -65,4 +65,37 @@
     padding-bottom: 100px;
     display: flex;
     align-items: center;
+}
+
+@media screen and (max-width: 768px) {
+    .missionsWrapper {
+        gap: 20px;
+    }
+
+    .missionsTitle {
+        font-size: 2em;
+    }
+
+    .adminMissionButtonWrapper {
+        gap: 10px;
+    }
+    .missionSelectContainer {
+        font-size: 16px;
+    }
+
+    .missionCardlist {
+        gap: 20px;
+    }
+
+    .noMission {
+        font-size: 1rem;
+    }
+    
+}
+
+@media screen and (max-width: 480px){
+    .adminMissionItem {
+        flex-direction: column;
+        gap: 10px;
+    }
 }

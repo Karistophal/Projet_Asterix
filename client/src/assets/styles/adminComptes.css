@@ -149,3 +149,33 @@
     letter-spacing: 0.1em;
     padding: 10px 30px;
   }
+
+  @media (max-width: 1100px) {
+
+    .leCompte {
+      flex-direction: column;
+      gap: 20px;
+    }
+
+  }
+
+  @media screen and (max-width: 800px){
+    .addAccountTitre {
+      font-size: 2em;
+      justify-content: center;
+    }
+    .infoAddAccountWrapper {
+      flex-direction: column;
+      gap: 20px;
+    }
+  }
+
+  @media screen and (max-width: 600px){
+    .infoCompte {
+      flex-direction: column;
+      gap: 0px;
+      overflow-x: hidden;
+      font-size: 1em;
+    }
+
+  }
