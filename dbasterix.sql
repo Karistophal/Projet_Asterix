@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : lun. 22 avr. 2024 à 21:44
+-- Généré le : mar. 23 avr. 2024 à 17:31
 -- Version du serveur :  5.7.31
 -- Version de PHP : 7.3.21
 
@@ -87,7 +87,7 @@ CREATE TABLE IF NOT EXISTS `missiondujour` (
   PRIMARY KEY (`id`),
   KEY `poste_id` (`poste_id`),
   KEY `structure` (`structure`)
-) ENGINE=MyISAM AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=22 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `missiondujour`
@@ -96,15 +96,10 @@ CREATE TABLE IF NOT EXISTS `missiondujour` (
 INSERT INTO `missiondujour` (`id`, `valide`, `date`, `poste_id`, `description`, `commentaire`, `structure`, `titre`) VALUES
 (1, 0, '2024-04-18', 1, 'Réparer cette barre rouillée', 'Bonjour la famille', 1, 'Réparation barre metal'),
 (2, 1, '2024-04-19', 1, 'Réparer la fenetre brisée ici', 'ceci est un commentaire', 3, 'Fenetre cassée'),
-(3, 1, '2024-04-18', 4, NULL, NULL, 0, ''),
-(4, 1, '2024-04-22', 4, 'Attention le test', NULL, 4, 'C\'est un test ca'),
-(5, 1, '2024-04-18', 2, 'vente caca', 'yes', 5, 'Vente'),
-(6, 1, '2024-04-19', 2, 'yse', 'salam', 6, ''),
-(7, 1, '2024-04-18', 5, 'Accueil nord', NULL, 0, ''),
-(8, 1, '2024-04-18', 5, 'trier les papiers', NULL, 0, ''),
-(9, 0, '2024-04-22', 1, 'pivot arrondi cassé au niveau de la bielle', 'qsqsdqsqss', 2, 'Manège endomagé'),
-(10, 1, '2024-04-22', 2, 'salut', 'nononon', 5, 'salut'),
-(11, 1, '2024-04-22', 4, '', NULL, 3, 'qsd');
+(21, 0, '2024-04-24', 3, 'Trier par la couleur bleue', NULL, 5, 'Rangement'),
+(13, 0, '2024-04-23', 5, 'Attention aux papiers', NULL, 10, 'S\'occuper de l\'accueil'),
+(20, 0, '2024-04-25', 5, '', NULL, 12, 'S\'occuper du centre d\'accueil'),
+(12, 0, '2024-04-24', 2, '', NULL, 7, 'Conseiller billeterie');
 
 -- --------------------------------------------------------
 
@@ -232,20 +227,15 @@ CREATE TABLE IF NOT EXISTS `utilisateur` (
   PRIMARY KEY (`user_id`),
   UNIQUE KEY `adresse_mail` (`adresse_mail`),
   KEY `equipe_id` (`equipe_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `utilisateur`
 --
 
 INSERT INTO `utilisateur` (`user_id`, `adresse_mail`, `mot_de_passe`, `equipe_id`, `admin`) VALUES
-(1, 'utilisateur1@example.com', 'motdepasse1', 1, 0),
-(2, 'utilisateur2@example.com', 'motdepasse2', 2, 0),
-(3, 'admin@example.com', 'adminpassword', 3, 1),
-(4, 'test', 'test', 1, 0),
-(5, 'admin', 'admin', 3, 1),
-(7, 'SuperAdmin2024', 'P@$$w0rd!2#4', 1, 1),
-(8, 'user1234', '!2qV#Kp$5&*Dn@9Ws%', 1, 0);
+(7, 'SuperAdmin2024', '$2b$10$8B/CJFdSr.Acq1.erdcNLOAghG.uPPgrB/aE46bRLY55Nx9dHZmV.', 1, 1),
+(11, 'user1234', '$2b$10$sGqEvo5i2qTRSSpFNs2riO4kfrUubSqwX5SO7B3cxjam1DldQHyL.', 2, 0);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

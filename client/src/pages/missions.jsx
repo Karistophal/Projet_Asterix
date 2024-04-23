@@ -8,7 +8,7 @@ import Button from "../components/bouton";
 function Missions() {
 
 
-    const { isLoggedIn, isAdmin } = useContext(AuthContext);
+    const { isLoggedIn, isAdmin, idUser } = useContext(AuthContext);
     let selectedOption, selectedMission = 0;
     let mf = [];
     const now = moment().format('yyyy-MM-D');
@@ -16,10 +16,11 @@ function Missions() {
     const [allPostes, setAllPostes] = useState([]);
     const [allStructures, setAllStructures] = useState([]);
     const [FilterMissions, setFilterMissions] = useState([]);
+    const [typeMission, setTypeMission] = useState();
 
     // variable pour l'ajout de mission
     const [titreMission, setTitreMission] = useState('');
-    const [commentaireMission, setCommentaireMission] = useState('');
+    const [descriptionMission, setDescriptionMission] = useState('');
     const [dateMission, setDateMission] = useState('');
     const [posteMission, setPosteMission] = useState('');
     const [structureMission, setStructureMission] = useState('');
@@ -98,7 +99,11 @@ function Missions() {
 
     const addMission = async (event) => {
         event.preventDefault();
-        if (isLoggedIn() && isAdmin() && titreMission !== '' && commentaireMission !== '' && dateMission !== '' && posteMission !== '' && structureMission !== '') {
+        if (!isLoggedIn() && !isAdmin()) {
+            window.location.href = "/auth";
+            return;
+        }
+        if (titreMission !== '' && dateMission !== '' && posteMission !== '' && structureMission !== '') {
             const token = localStorage.getItem('token');
             if (!window.confirm('Voulez-vous vraiment ajouter cette mission?')) {
                 return;
@@ -112,7 +117,7 @@ function Missions() {
                     },
                     body: JSON.stringify({
                         titre: titreMission,
-                        commentaire: commentaireMission,
+                        description: descriptionMission,
                         date: dateMission,
                         poste: posteMission,
                         structure: structureMission
@@ -129,8 +134,9 @@ function Missions() {
                 console.error('Erreur:', error);
             }
         }
+
     };
-    
+
 
 
 
@@ -142,7 +148,7 @@ function Missions() {
                         <div className="missionsTitle">Créer une mission</div>
                         <div className="adminMissionButtonWrapper">
                             <div className="adminMissionItem">Titre :<input onChange={e => setTitreMission(e.target.value)} type="text" name="" placeholder="Entrez un titre.." id="" required /></div>
-                            <div className="adminMissionItem">Description :<textarea onChange={e => setCommentaireMission(e.target.value)} name="" placeholder="Entrez une description.. (optionnel)" id="" cols="30" rows="2"></textarea></div>
+                            <div className="adminMissionItem">Description :<textarea onChange={e => setDescriptionMission(e.target.value)} name="" placeholder="Entrez une description.. (optionnel)" id="" cols="30" rows="2"></textarea></div>
                             <div className="adminMissionItem">Date :<input onChange={e => setDateMission(moment(e.target.value, 'YYYY-MM-DD')._i)} type="date" name="" id="" required/></div>
                             <div className="adminMissionItem">Poste :
                                 <select onChange={e => { setPosteMission(e.target.value); console.log(e.target.value); }} name="" id="" required>

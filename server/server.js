@@ -311,11 +311,12 @@ app.post('/api/ajoutalertes', (req, res) => {
   });
 
   app.post('/addMission', verifyToken, (req, res) => {
+    console.log(req.body);
     let { titre, description, date, poste, structure } = req.body;
     if (description === undefined) {description = '';}
     console.log(titre, description, date, poste, structure);
 
-    connection.query('INSERT INTO missiondujour (titre, description, date, poste_id, structure) VALUES (?, ?, ?, ?, ?)', [titre, description, date, poste, structure], (err, result) => {
+    connection.query('INSERT INTO missiondujour (titre, description, date, poste_id, structure, valide) VALUES (?, ?, ?, ?, ?, false)', [titre, description, date, poste, structure], (err, result) => {
       if (err) {
         res.status(500).json({ error: 'Erreur lors de l\'ajout de la mission' });
       } else {
