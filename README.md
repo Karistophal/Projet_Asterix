@@ -50,7 +50,7 @@ https://www.figma.com/file/rsdoMNHXU9hgSYU4L27uoO/Projet-Astérix?type=design&no
    - Choisir le répertoire local : Sélectionnez le répertoire local où vous souhaitez cloner le projet en cliquant sur le bouton "Choose" à côté de "Directory". Vous pouvez également laisser GitKraken choisir un répertoire par défaut.
    - Cloner le projet : Cliquez sur le bouton "Clone the repo!". GitKraken commencera alors à cloner le projet depuis GitHub vers votre répertoire local spécifié.
    - Installer les différents modules du projet react présent dans le dossier client (npm i, npm i sass).
-   - Installer les différents modules de l'API présent dans le dossier server (npm i).
+   - Installer les différents modules de l'API présent dans le dossier server (npm i, npm i nodemon).
    ```
 
    ## Base de données

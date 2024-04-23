@@ -8,6 +8,7 @@
 }
 
 body {
+  position: relative;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -37,9 +38,10 @@ code {
   display: flex;
   flex-direction: column;
   padding-inline: 200px;
+  margin-top: 100px;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 900px) {
   .app {
     padding-inline: 50px;
   }

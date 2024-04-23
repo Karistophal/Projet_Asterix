@@ -244,7 +244,7 @@ INSERT INTO `utilisateur` (`user_id`, `adresse_mail`, `mot_de_passe`, `equipe_id
 (3, 'admin@example.com', 'adminpassword', 3, 1),
 (4, 'test', 'test', 1, 0),
 (5, 'admin', 'admin', 3, 1),
-(7, 'SuperAdmin2024', 'P@$$w0rd!2#4', 1, 0),
+(7, 'SuperAdmin2024', 'P@$$w0rd!2#4', 1, 1),
 (8, 'user1234', '!2qV#Kp$5&*Dn@9Ws%', 1, 0);
 COMMIT;
 

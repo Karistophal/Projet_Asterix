@@ -44,5 +44,10 @@
     }
     .homeTitle {
         width: 100%;
+        font-size: 2em;
+    }
+    .homeButtonWrapper {
+      flex-direction: column;
+      width: 300px;
     }
   }
